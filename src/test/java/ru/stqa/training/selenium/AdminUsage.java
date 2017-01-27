@@ -1,5 +1,8 @@
 package ru.stqa.training.selenium;
 
+
+import org.apache.http.auth.Credentials;
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -18,6 +21,7 @@ public class AdminUsage {
 
   @BeforeMethod
   public void setUp() throws Exception {
+    //Credentials credentials = new UsernamePasswordCredentials("admin", "admin");
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
     login();
@@ -192,7 +196,7 @@ public class AdminUsage {
   }
 
   private void login() {
-    driver.get("http://localhost/litecart/admin/login.php");
+    driver.get("http://admin:admin@localhost/litecart/admin/login.php");
     driver.findElement(By.name("username")).click();
     driver.findElement(By.name("username")).clear();
     driver.findElement(By.name("username")).sendKeys("admin");
