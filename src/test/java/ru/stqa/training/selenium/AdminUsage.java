@@ -1,10 +1,7 @@
 package ru.stqa.training.selenium;
 
 
-import org.apache.http.auth.Credentials;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
@@ -21,7 +18,6 @@ public class AdminUsage {
 
   @BeforeMethod
   public void setUp() throws Exception {
-    //Credentials credentials = new UsernamePasswordCredentials("admin", "admin");
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
     login();
@@ -207,16 +203,8 @@ public class AdminUsage {
   }
 
   @AfterMethod
-  public void tearDown() {
+  public void stop() {
     driver.quit();
-  }
-
-  public static boolean isAlertPresent(ChromeDriver driver) {
-    try {
-      driver.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
+    driver = null;
   }
 }
