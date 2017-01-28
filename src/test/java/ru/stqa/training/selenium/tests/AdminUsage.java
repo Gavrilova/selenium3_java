@@ -16,7 +16,8 @@ public class AdminUsage extends TestBase {
     app.getNavigationHelper().gotoCatalogPage();
     app.getNavigationHelper().gotoProductGroupPage();
     app.getNavigationHelper().openCatalogMenu();
-    app.initAddNewCategory();
+    app.getNavigationHelper().gotoCatalogSubMenuPage();
+    app.getCategoryHelper().initAddNewCategory();
     app.getCategoryHelper().fillCategoryForm(new CategoryData("Big Ducks"));
     app.getNavigationHelper().choosingProductFromCategories();
     app.getProductHelper().submitProductDuplicate();
@@ -24,9 +25,9 @@ public class AdminUsage extends TestBase {
     app.getProductHelper().fillProductForm(new ProductData("RD009", "RD009", "10.0000", "10", "Big Green Duck", "Best big green duck ever", "\\undefined"));
     app.getNavigationHelper().choosingProductInCategories();
     app.getProductHelper().submitProductDeleting();
-    app.choosingCategoryToEdit();
+    app.getNavigationHelper().choosingCategoryToEdit();
     app.getCategoryHelper().submitCategoryDeleting();
-    app.logoutAdminSession();
+    app.getNavigationHelper().logoutAdminSession();
   }
 
 }

@@ -1,6 +1,5 @@
 package ru.stqa.training.selenium.appmanager;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.concurrent.TimeUnit;
@@ -26,20 +25,6 @@ public class ApplicationManager {
     sessionHelper = new SessionHelper(driver);
     categoryHelper = new CategoryHelper(driver);
     sessionHelper.login("admin", "admin");
-  }
-
-  public void choosingCategoryToEdit() {
-    navigationHelper.openNewSubMenu();
-    driver.findElement(By.xpath("//table[@class='dataTable']/tbody/tr[5]/td[5]/a/i")).click();
-  }
-
-  public void initAddNewCategory() {
-    navigationHelper.gotoCatalogSubMenuPage();
-    driver.findElement(By.linkText("Add New Category")).click();
-  }
-
-  public void logoutAdminSession() {
-    driver.findElement(By.xpath("//td[@id='sidebar']/div[2]/a[5]/i")).click();
   }
 
   public void stop() {

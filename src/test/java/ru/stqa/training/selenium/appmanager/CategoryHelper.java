@@ -22,6 +22,10 @@ public class CategoryHelper extends HelperBase {
     click(By.name("save"));
   }
 
+  public void initAddNewCategory() {
+    click(By.linkText("Add New Category"));
+  }
+
   public void submitCategoryDeleting() {
     click(By.name("delete"));
     driver.switchTo().alert().accept();

@@ -37,6 +37,9 @@ public class NavigationHelper extends HelperBase {
     }
   }
 
+  public void gotoCatalogPage() {
+    click(By.linkText("Catalog"));
+  }
 
   public void openCatalogMenu() {
     gotoCatalogSubMenuPage();
@@ -47,6 +50,10 @@ public class NavigationHelper extends HelperBase {
   public void gotoCatalogSubMenuPage() {
     gotoCatalogPage();
     click(By.xpath("//li[@id='doc-catalog']//span[.='Catalog']"));
+  }
+  public void choosingCategoryToEdit() {
+    openNewSubMenu();
+    click(By.xpath("//table[@class='dataTable']/tbody/tr[5]/td[5]/a/i"));
   }
 
   public void gotoProductGroupPage() {
@@ -62,7 +69,8 @@ public class NavigationHelper extends HelperBase {
     click(By.linkText("Manufacturers"));
   }
 
-  public void gotoCatalogPage() {
-    click(By.linkText("Catalog"));
+
+  public void logoutAdminSession() {
+    driver.findElement(By.xpath("//td[@id='sidebar']/div[2]/a[5]/i")).click();
   }
 }
