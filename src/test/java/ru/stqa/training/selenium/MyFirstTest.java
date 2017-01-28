@@ -17,7 +17,6 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.titleIs;
 
 public class MyFirstTest {
 
-
   private WebDriver driver;
   private WebDriverWait wait;
 
