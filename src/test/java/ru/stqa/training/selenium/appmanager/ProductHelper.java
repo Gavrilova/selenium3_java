@@ -8,62 +8,57 @@ import ru.stqa.training.selenium.model.ProductData;
 /**
  * Created by irinagavrilova on 1/28/17.
  */
-public class ProductHelper {
-  private ChromeDriver driver;
+public class ProductHelper extends HelperBase {
 
   public ProductHelper(ChromeDriver driver) {
-    this.driver = driver;
+    super(driver);
   }
 
   public void fillProductForm(ProductData productData) {
-    driver.findElement(By.name("code")).click();
-    driver.findElement(By.name("code")).clear();
-    driver.findElement(By.name("code")).sendKeys(productData.getGeneralCode());
-
-    driver.findElement(By.xpath("//div[@id='tab-general']/table/tbody/tr[3]/td")).click();
-    driver.findElement(By.name("name[en]")).click();
-    driver.findElement(By.name("name[en]")).clear();
-    driver.findElement(By.name("name[en]")).sendKeys(productData.getNameEng());
+    type(By.name("code"),productData.getGeneralCode());
+    click(By.xpath("//div[@id='tab-general']/table/tbody/tr[3]/td"));
+    type(By.name("name[en]"),productData.getNameEng());
     if (!driver.findElement(By.xpath("//div[@id='tab-general']/table/tbody/tr[4]/td/div/table/tbody/tr[4]/td[1]/input")).isSelected()) {
-      driver.findElement(By.xpath("//div[@id='tab-general']/table/tbody/tr[4]/td/div/table/tbody/tr[4]/td[1]/input")).click();
+      click(By.xpath("//div[@id='tab-general']/table/tbody/tr[4]/td/div/table/tbody/tr[4]/td[1]/input"));
     }
     if (driver.findElement(By.xpath("//div[@id='tab-general']/table/tbody/tr[4]/td/div/table/tbody/tr[3]/td[1]/input")).isSelected()) {
-      driver.findElement(By.xpath("//div[@id='tab-general']/table/tbody/tr[4]/td/div/table/tbody/tr[3]/td[1]/input")).click();
+      click(By.xpath("//div[@id='tab-general']/table/tbody/tr[4]/td/div/table/tbody/tr[3]/td[1]/input"));
     }
     if (!driver.findElement(By.name("product_groups[]")).isSelected()) {
-      driver.findElement(By.name("product_groups[]")).click();
+      click(By.name("product_groups[]"));
+
     }
+
     new Actions(driver).doubleClick(driver.findElement(By.name("product_groups[]"))).build().perform();
-    driver.findElement(By.name("quantity")).click();
+    click(By.name("quantity"));
+
     driver.findElement(By.name("quantity")).sendKeys(productData.getQuantity());
-    driver.findElement(By.name("quantity")).click();
-    driver.findElement(By.linkText("Information")).click();
-    driver.findElement(By.name("short_description[en]")).click();
-    driver.findElement(By.name("short_description[en]")).clear();
-    driver.findElement(By.name("short_description[en]")).sendKeys(productData.getShortDescriptionEng());
-    driver.findElement(By.cssSelector("div.trumbowyg-editor")).click();
-    driver.findElement(By.linkText("Data")).click();
-    driver.findElement(By.name("sku")).click();
-    driver.findElement(By.name("sku")).clear();
-    driver.findElement(By.name("sku")).sendKeys(productData.getSKU());
-    driver.findElement(By.xpath("//div[@id='tab-data']/table/tbody/tr[1]/td")).click();
-    driver.findElement(By.linkText("Prices")).click();
-    driver.findElement(By.name("prices[USD]")).click();
-    driver.findElement(By.name("prices[USD]")).clear();
-    driver.findElement(By.name("prices[USD]")).sendKeys(productData.getPriceUSD());
-    driver.findElement(By.xpath("//a[@id='add-campaign']/i")).click();
-    driver.findElement(By.name("campaigns[new_1][percentage]")).click();
-    driver.findElement(By.name("campaigns[new_1][percentage]")).clear();
-    driver.findElement(By.name("campaigns[new_1][percentage]")).sendKeys(productData.getCompaingsPercentage());
-    driver.findElement(By.name("campaigns[new_1][percentage]")).click();
-    driver.findElement(By.name("save")).click();
+    click(By.name("quantity"));
+    click(By.linkText("Information"));
+
+    type(By.name("short_description[en]"),productData.getShortDescriptionEng());
+    click(By.cssSelector("div.trumbowyg-editor"));
+    click(By.linkText("Data"));
+
+
+    type(By.name("sku"),productData.getSKU());
+    click(By.xpath("//div[@id='tab-data']/table/tbody/tr[1]/td"));
+    click(By.linkText("Prices"));
+
+
+    type(By.name("prices[USD]"), productData.getPriceUSD());
+    click(By.xpath("//a[@id='add-campaign']/i"));
+
+    type(By.name("campaigns[new_1][percentage]"), productData.getCompaingsPercentage());
+    click(By.name("campaigns[new_1][percentage]"));
+    click(By.name("save"));
   }
 
   public void initEditProduct() {
-    driver.findElement(By.xpath("//table[@class='dataTable']/tbody/tr[7]/td[5]/a/i")).click();
+    click(By.xpath("//table[@class='dataTable']/tbody/tr[7]/td[5]/a/i"));
   }
 
   public void submitProductDuplicate() {
-    driver.findElement(By.name("duplicate")).click();
+    click(By.name("duplicate"));
   }
 }

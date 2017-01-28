@@ -6,24 +6,19 @@ import org.openqa.selenium.chrome.ChromeDriver;
 /**
  * Created by irinagavrilova on 1/28/17.
  */
-public class SessionHelper {
-  private ChromeDriver driver;
+public class SessionHelper extends HelperBase {
 
   public SessionHelper(ChromeDriver driver) {
+    super(driver);
 
-    this.driver = driver;
   }
 
 
   public void login(String username, String password) {
     driver.get("http://admin:admin@localhost/litecart/admin/login.php");
-    driver.findElement(By.name("username")).click();
-    driver.findElement(By.name("username")).clear();
-    driver.findElement(By.name("username")).sendKeys(username);
-    driver.findElement(By.name("password")).click();
-    driver.findElement(By.name("password")).clear();
-    driver.findElement(By.name("password")).sendKeys(password);
-    driver.findElement(By.name("login")).click();
+    type(By.name("username"), username);
+    type(By.name("password"), password);
+    click(By.name("login"));
   }
 
 }
