@@ -2,7 +2,6 @@ package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
-import ru.stqa.training.selenium.model.CategoryData;
 
 import java.util.concurrent.TimeUnit;
 
@@ -13,6 +12,7 @@ public class ApplicationManager {
 
 
   ChromeDriver driver;
+
   private CategoryHelper categoryHelper;
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
@@ -31,11 +31,6 @@ public class ApplicationManager {
   public void choosingCategoryToEdit() {
     navigationHelper.openNewSubMenu();
     driver.findElement(By.xpath("//table[@class='dataTable']/tbody/tr[5]/td[5]/a/i")).click();
-  }
-
-  public void submitDeleting() {
-    driver.findElement(By.name("delete")).click();
-    driver.switchTo().alert().accept();
   }
 
   public void initAddNewCategory() {

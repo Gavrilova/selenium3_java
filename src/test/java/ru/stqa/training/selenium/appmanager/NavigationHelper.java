@@ -6,63 +6,63 @@ import org.openqa.selenium.chrome.ChromeDriver;
 /**
  * Created by irinagavrilova on 1/28/17.
  */
-public class NavigationHelper {
-  private ChromeDriver driver;
+public class NavigationHelper extends HelperBase {
 
   public NavigationHelper(ChromeDriver driver) {
-    this.driver = driver;
+    super(driver);
   }
 
   protected void openNewSubMenu() {
     openCatalogMenu();
-    driver.findElement(By.linkText("Big Ducks")).click();
+    click(By.linkText("Big Ducks"));
   }
 
   public void choosingProductFromCategories() {
     openCatalogMenu();
     if (!driver.findElement(By.name("products[2]")).isSelected()) {
-      driver.findElement(By.name("products[2]")).click();
+      click(By.name("products[2]"));
     }
     if (!driver.findElement(By.xpath("//ul[@class='list-horizontal']/li[3]/select//option[4]")).isSelected()) {
-      driver.findElement(By.xpath("//ul[@class='list-horizontal']/li[3]/select//option[4]")).click();
+      click(By.xpath("//ul[@class='list-horizontal']/li[3]/select//option[4]"));
     }
   }
+
   public void choosingProductInCategories() {
     openNewSubMenu();
     if (!driver.findElement(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr[6]/td[1]/input")).isSelected()) {
-      driver.findElement(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr[6]/td[1]/input")).click();
+      click(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr[6]/td[1]/input"));
     }
     if (!driver.findElement(By.xpath("//*[@id=\"content\"]/form/ul/li[3]/select/option[5]")).isSelected()) {
-      driver.findElement(By.xpath("//*[@id=\"content\"]/form/ul/li[3]/select/option[5]")).click();
+      click(By.xpath("//*[@id=\"content\"]/form/ul/li[3]/select/option[5]"));
     }
   }
 
 
   public void openCatalogMenu() {
     gotoCatalogSubMenuPage();
-    driver.findElement(By.linkText("Rubber Ducks")).click();
-    driver.findElement(By.linkText("Subcategory")).click();
+    click(By.linkText("Rubber Ducks"));
+    click(By.linkText("Subcategory"));
   }
 
   public void gotoCatalogSubMenuPage() {
     gotoCatalogPage();
-    driver.findElement(By.xpath("//li[@id='doc-catalog']//span[.='Catalog']")).click();
+    click(By.xpath("//li[@id='doc-catalog']//span[.='Catalog']"));
   }
 
   public void gotoProductGroupPage() {
-    driver.findElement(By.linkText("Product Groups")).click();
+    click(By.linkText("Product Groups"));
   }
 
   public void gotoAcmeCorpPage() {
-    driver.findElement(By.linkText("ACME Corp.")).click();
-    driver.findElement(By.linkText("Information")).click();
+    click(By.linkText("ACME Corp."));
+    click(By.linkText("Information"));
   }
 
   public void gotoManufacturesPage() {
-    driver.findElement(By.linkText("Manufacturers")).click();
+    click(By.linkText("Manufacturers"));
   }
 
   public void gotoCatalogPage() {
-    driver.findElement(By.linkText("Catalog")).click();
+    click(By.linkText("Catalog"));
   }
 }

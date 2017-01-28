@@ -23,9 +23,9 @@ public class AdminUsage extends TestBase {
     app.getProductHelper().initEditProduct();
     app.getProductHelper().fillProductForm(new ProductData("RD009", "RD009", "10.0000", "10", "Big Green Duck", "Best big green duck ever", "\\undefined"));
     app.getNavigationHelper().choosingProductInCategories();
-    app.submitDeleting();
+    app.getProductHelper().submitProductDeleting();
     app.choosingCategoryToEdit();
-    app.submitDeleting();
+    app.getCategoryHelper().submitCategoryDeleting();
     app.logoutAdminSession();
   }
 

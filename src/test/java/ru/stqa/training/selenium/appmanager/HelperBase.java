@@ -22,4 +22,9 @@ public class HelperBase {
     driver.findElement(locator).clear();
     driver.findElement(locator).sendKeys(text);
   }
+
+  protected void set(By locator, String quantity) {
+    click(locator);
+    driver.findElement(locator).sendKeys(quantity);
+  }
 }

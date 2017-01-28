@@ -7,21 +7,23 @@ import ru.stqa.training.selenium.model.CategoryData;
 /**
  * Created by irinagavrilova on 1/28/17.
  */
-public class CategoryHelper {
-  private ChromeDriver driver;
+public class CategoryHelper extends HelperBase {
 
   public CategoryHelper(ChromeDriver driver) {
-    this.driver=driver;
+    super(driver);
   }
 
   public void fillCategoryForm(CategoryData categoryData) {
     if (!driver.findElement(By.name("status")).isSelected()) {
-      driver.findElement(By.name("status")).click();
+      click(By.name("status"));
     }
-    driver.findElement(By.name("name[en]")).click();
-    driver.findElement(By.name("name[en]")).clear();
-    driver.findElement(By.name("name[en]")).sendKeys(categoryData.getCategoryNameEng());
-    driver.findElement(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[4]/td/select/option[4]")).click();
-    driver.findElement(By.name("save")).click();
+    type(By.name("name[en]"), categoryData.getCategoryNameEng());
+    click(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[4]/td/select/option[4]"));
+    click(By.name("save"));
+  }
+
+  public void submitCategoryDeleting() {
+    click(By.name("delete"));
+    driver.switchTo().alert().accept();
   }
 }

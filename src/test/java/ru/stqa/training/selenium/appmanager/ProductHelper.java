@@ -15,9 +15,9 @@ public class ProductHelper extends HelperBase {
   }
 
   public void fillProductForm(ProductData productData) {
-    type(By.name("code"),productData.getGeneralCode());
+    type(By.name("code"), productData.getGeneralCode());
     click(By.xpath("//div[@id='tab-general']/table/tbody/tr[3]/td"));
-    type(By.name("name[en]"),productData.getNameEng());
+    type(By.name("name[en]"), productData.getNameEng());
     if (!driver.findElement(By.xpath("//div[@id='tab-general']/table/tbody/tr[4]/td/div/table/tbody/tr[4]/td[1]/input")).isSelected()) {
       click(By.xpath("//div[@id='tab-general']/table/tbody/tr[4]/td/div/table/tbody/tr[4]/td[1]/input"));
     }
@@ -30,18 +30,17 @@ public class ProductHelper extends HelperBase {
     }
 
     new Actions(driver).doubleClick(driver.findElement(By.name("product_groups[]"))).build().perform();
-    click(By.name("quantity"));
 
-    driver.findElement(By.name("quantity")).sendKeys(productData.getQuantity());
+    set(By.name("quantity"), productData.getQuantity());
     click(By.name("quantity"));
     click(By.linkText("Information"));
 
-    type(By.name("short_description[en]"),productData.getShortDescriptionEng());
+    type(By.name("short_description[en]"), productData.getShortDescriptionEng());
     click(By.cssSelector("div.trumbowyg-editor"));
     click(By.linkText("Data"));
 
 
-    type(By.name("sku"),productData.getSKU());
+    type(By.name("sku"), productData.getSKU());
     click(By.xpath("//div[@id='tab-data']/table/tbody/tr[1]/td"));
     click(By.linkText("Prices"));
 
@@ -61,4 +60,10 @@ public class ProductHelper extends HelperBase {
   public void submitProductDuplicate() {
     click(By.name("duplicate"));
   }
+
+  public void submitProductDeleting() {
+    click(By.name("delete"));
+    driver.switchTo().alert().accept();
+  }
+
 }
