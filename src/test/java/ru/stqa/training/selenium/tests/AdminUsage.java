@@ -10,19 +10,19 @@ public class AdminUsage extends TestBase {
 
   @Test
   public void testAdminUsage() {
-    app.gotoCatalogPage();
-    app.gotoManufacturesPage();
-    app.gotoAcmeCorpPage();
-    app.gotoCatalogPage();
-    app.gotoProductGroupPage();
-    app.openCatalogMenu();
+    app.getNavigationHelper().gotoCatalogPage();
+    app.getNavigationHelper().gotoManufacturesPage();
+    app.getNavigationHelper().gotoAcmeCorpPage();
+    app.getNavigationHelper().gotoCatalogPage();
+    app.getNavigationHelper().gotoProductGroupPage();
+    app.getNavigationHelper().openCatalogMenu();
     app.initAddNewCategory();
-    app.fillCategoryForm(new CategoryData("Big Ducks"));
-    app.choosingProductFromCategories();
-    app.submitProductDuplicate();
-    app.initEditProduct();
-    app.fillProductForm(new ProductData("RD009", "RD009", "10.0000", "10", "Big Green Duck", "Best big green duck ever", "\\undefined"));
-    app.choosingProductInCategories();
+    app.getCategoryHelper().fillCategoryForm(new CategoryData("Big Ducks"));
+    app.getNavigationHelper().choosingProductFromCategories();
+    app.getProductHelper().submitProductDuplicate();
+    app.getProductHelper().initEditProduct();
+    app.getProductHelper().fillProductForm(new ProductData("RD009", "RD009", "10.0000", "10", "Big Green Duck", "Best big green duck ever", "\\undefined"));
+    app.getNavigationHelper().choosingProductInCategories();
     app.submitDeleting();
     app.choosingCategoryToEdit();
     app.submitDeleting();
