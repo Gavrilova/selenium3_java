@@ -20,7 +20,7 @@ public class AdminUsage {
   public void setUp() throws Exception {
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-    login();
+    login("admin", "admin");
   }
 
 
@@ -33,11 +33,11 @@ public class AdminUsage {
     gotoProductGroupPage();
     openCatalogMenu();
     initAddNewCategory();
-    fillCategoryForm();
+    fillCategoryForm("Big Ducks");
     choosingProductFromCategories();
     submitProductDuplicate();
     initEditProduct();
-    fillProductForm();
+    fillProductForm("RD009", "RD009", "10.0000", "10", "Big Green Duck", "Best big green duck ever", "\\undefined");
     choosingProductInCategories();
     submitDeleting();
     choosingCategoryToEdit();
@@ -70,15 +70,15 @@ public class AdminUsage {
     driver.findElement(By.linkText("Big Ducks")).click();
   }
 
-  private void fillProductForm() {
+  private void fillProductForm(String generalCode, String SKU, String priceUSD, String compaingsPercentage, String nameEng, String shortDescriptionEng, String quantity) {
     driver.findElement(By.name("code")).click();
     driver.findElement(By.name("code")).clear();
-    driver.findElement(By.name("code")).sendKeys("RD009");
+    driver.findElement(By.name("code")).sendKeys(generalCode);
 
     driver.findElement(By.xpath("//div[@id='tab-general']/table/tbody/tr[3]/td")).click();
     driver.findElement(By.name("name[en]")).click();
     driver.findElement(By.name("name[en]")).clear();
-    driver.findElement(By.name("name[en]")).sendKeys("Big Green Duck");
+    driver.findElement(By.name("name[en]")).sendKeys(nameEng);
     if (!driver.findElement(By.xpath("//div[@id='tab-general']/table/tbody/tr[4]/td/div/table/tbody/tr[4]/td[1]/input")).isSelected()) {
       driver.findElement(By.xpath("//div[@id='tab-general']/table/tbody/tr[4]/td/div/table/tbody/tr[4]/td[1]/input")).click();
     }
@@ -90,37 +90,26 @@ public class AdminUsage {
     }
     new Actions(driver).doubleClick(driver.findElement(By.name("product_groups[]"))).build().perform();
     driver.findElement(By.name("quantity")).click();
-    driver.findElement(By.name("quantity")).sendKeys("\\undefined");
+    driver.findElement(By.name("quantity")).sendKeys(quantity);
     driver.findElement(By.name("quantity")).click();
     driver.findElement(By.linkText("Information")).click();
     driver.findElement(By.name("short_description[en]")).click();
     driver.findElement(By.name("short_description[en]")).clear();
-    driver.findElement(By.name("short_description[en]")).sendKeys("Best big green duck ever");
+    driver.findElement(By.name("short_description[en]")).sendKeys(shortDescriptionEng);
     driver.findElement(By.cssSelector("div.trumbowyg-editor")).click();
     driver.findElement(By.linkText("Data")).click();
     driver.findElement(By.name("sku")).click();
     driver.findElement(By.name("sku")).clear();
-    driver.findElement(By.name("sku")).sendKeys("RD009");
+    driver.findElement(By.name("sku")).sendKeys(SKU);
     driver.findElement(By.xpath("//div[@id='tab-data']/table/tbody/tr[1]/td")).click();
     driver.findElement(By.linkText("Prices")).click();
     driver.findElement(By.name("prices[USD]")).click();
     driver.findElement(By.name("prices[USD]")).clear();
-    driver.findElement(By.name("prices[USD]")).sendKeys("10.0000");
+    driver.findElement(By.name("prices[USD]")).sendKeys(priceUSD);
     driver.findElement(By.xpath("//a[@id='add-campaign']/i")).click();
     driver.findElement(By.name("campaigns[new_1][percentage]")).click();
-    driver.findElement(By.name("campaigns[new_1][percentage]")).sendKeys("\\undefined");
-    driver.findElement(By.name("campaigns[new_1][percentage]")).click();
     driver.findElement(By.name("campaigns[new_1][percentage]")).clear();
-    driver.findElement(By.name("campaigns[new_1][percentage]")).sendKeys("4");
-    driver.findElement(By.name("campaigns[new_1][percentage]")).click();
-    driver.findElement(By.name("campaigns[new_1][percentage]")).clear();
-    driver.findElement(By.name("campaigns[new_1][percentage]")).sendKeys("6");
-    driver.findElement(By.name("campaigns[new_1][percentage]")).click();
-    driver.findElement(By.name("campaigns[new_1][percentage]")).clear();
-    driver.findElement(By.name("campaigns[new_1][percentage]")).sendKeys("8");
-    driver.findElement(By.name("campaigns[new_1][percentage]")).click();
-    driver.findElement(By.name("campaigns[new_1][percentage]")).clear();
-    driver.findElement(By.name("campaigns[new_1][percentage]")).sendKeys("10");
+    driver.findElement(By.name("campaigns[new_1][percentage]")).sendKeys(compaingsPercentage);
     driver.findElement(By.name("campaigns[new_1][percentage]")).click();
     driver.findElement(By.name("save")).click();
   }
@@ -149,13 +138,13 @@ public class AdminUsage {
     driver.findElement(By.linkText("Subcategory")).click();
   }
 
-  private void fillCategoryForm() {
+  private void fillCategoryForm(String categoryNameEng) {
     if (!driver.findElement(By.name("status")).isSelected()) {
       driver.findElement(By.name("status")).click();
     }
     driver.findElement(By.name("name[en]")).click();
     driver.findElement(By.name("name[en]")).clear();
-    driver.findElement(By.name("name[en]")).sendKeys("Big Ducks");
+    driver.findElement(By.name("name[en]")).sendKeys(categoryNameEng);
     driver.findElement(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[4]/td/select/option[4]")).click();
     driver.findElement(By.name("save")).click();
   }
@@ -191,14 +180,14 @@ public class AdminUsage {
     driver.findElement(By.linkText("Catalog")).click();
   }
 
-  private void login() {
+  private void login(String username, String password) {
     driver.get("http://admin:admin@localhost/litecart/admin/login.php");
     driver.findElement(By.name("username")).click();
     driver.findElement(By.name("username")).clear();
-    driver.findElement(By.name("username")).sendKeys("admin");
+    driver.findElement(By.name("username")).sendKeys(username);
     driver.findElement(By.name("password")).click();
     driver.findElement(By.name("password")).clear();
-    driver.findElement(By.name("password")).sendKeys("admin");
+    driver.findElement(By.name("password")).sendKeys(password);
     driver.findElement(By.name("login")).click();
   }
 
