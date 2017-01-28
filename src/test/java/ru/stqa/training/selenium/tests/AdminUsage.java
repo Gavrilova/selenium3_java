@@ -1,7 +1,9 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.tests;
 
 
 import org.testng.annotations.Test;
+import ru.stqa.training.selenium.model.CategoryData;
+import ru.stqa.training.selenium.model.ProductData;
 
 
 public class AdminUsage extends TestBase {

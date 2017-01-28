@@ -1,8 +1,10 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import ru.stqa.training.selenium.model.CategoryData;
+import ru.stqa.training.selenium.model.ProductData;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,18 +14,18 @@ import java.util.concurrent.TimeUnit;
 public class ApplicationManager {
   ChromeDriver driver;
 
-  protected void init() {
+  public void init() {
     driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
     login("admin", "admin");
   }
 
-  protected void choosingCategoryToEdit() {
+  public void choosingCategoryToEdit() {
     openNewSubMenu();
     driver.findElement(By.xpath("//table[@class='dataTable']/tbody/tr[5]/td[5]/a/i")).click();
   }
 
-  protected void choosingProductInCategories() {
+  public void choosingProductInCategories() {
     openNewSubMenu();
     if (!driver.findElement(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr[6]/td[1]/input")).isSelected()) {
       driver.findElement(By.xpath("//*[@id=\"content\"]/form/table/tbody/tr[6]/td[1]/input")).click();
@@ -33,7 +35,7 @@ public class ApplicationManager {
     }
   }
 
-  protected void submitDeleting() {
+  public void submitDeleting() {
     driver.findElement(By.name("delete")).click();
     driver.switchTo().alert().accept();
   }
@@ -43,7 +45,7 @@ public class ApplicationManager {
     driver.findElement(By.linkText("Big Ducks")).click();
   }
 
-  protected void fillProductForm(ProductData productData) {
+  public void fillProductForm(ProductData productData) {
     driver.findElement(By.name("code")).click();
     driver.findElement(By.name("code")).clear();
     driver.findElement(By.name("code")).sendKeys(productData.getGeneralCode());
@@ -87,15 +89,15 @@ public class ApplicationManager {
     driver.findElement(By.name("save")).click();
   }
 
-  protected void initEditProduct() {
+  public void initEditProduct() {
     driver.findElement(By.xpath("//table[@class='dataTable']/tbody/tr[7]/td[5]/a/i")).click();
   }
 
-  protected void submitProductDuplicate() {
+  public void submitProductDuplicate() {
     driver.findElement(By.name("duplicate")).click();
   }
 
-  protected void choosingProductFromCategories() {
+  public void choosingProductFromCategories() {
     openCatalogMenu();
     if (!driver.findElement(By.name("products[2]")).isSelected()) {
       driver.findElement(By.name("products[2]")).click();
@@ -105,13 +107,13 @@ public class ApplicationManager {
     }
   }
 
-  protected void openCatalogMenu() {
+  public void openCatalogMenu() {
     gotoCatalogSubMenuPage();
     driver.findElement(By.linkText("Rubber Ducks")).click();
     driver.findElement(By.linkText("Subcategory")).click();
   }
 
-  protected void fillCategoryForm(CategoryData categoryData) {
+  public void fillCategoryForm(CategoryData categoryData) {
     if (!driver.findElement(By.name("status")).isSelected()) {
       driver.findElement(By.name("status")).click();
     }
@@ -122,38 +124,38 @@ public class ApplicationManager {
     driver.findElement(By.name("save")).click();
   }
 
-  protected void initAddNewCategory() {
+  public void initAddNewCategory() {
     gotoCatalogSubMenuPage();
     driver.findElement(By.linkText("Add New Category")).click();
   }
 
-  private void gotoCatalogSubMenuPage() {
+  public void gotoCatalogSubMenuPage() {
     gotoCatalogPage();
     driver.findElement(By.xpath("//li[@id='doc-catalog']//span[.='Catalog']")).click();
   }
 
-  protected void logoutAdminSession() {
+  public void logoutAdminSession() {
     driver.findElement(By.xpath("//td[@id='sidebar']/div[2]/a[5]/i")).click();
   }
 
-  protected void gotoProductGroupPage() {
+  public void gotoProductGroupPage() {
     driver.findElement(By.linkText("Product Groups")).click();
   }
 
-  protected void gotoAcmeCorpPage() {
+  public void gotoAcmeCorpPage() {
     driver.findElement(By.linkText("ACME Corp.")).click();
     driver.findElement(By.linkText("Information")).click();
   }
 
-  protected void gotoManufacturesPage() {
+  public void gotoManufacturesPage() {
     driver.findElement(By.linkText("Manufacturers")).click();
   }
 
-  protected void gotoCatalogPage() {
+  public void gotoCatalogPage() {
     driver.findElement(By.linkText("Catalog")).click();
   }
 
-  private void login(String username, String password) {
+  public void login(String username, String password) {
     driver.get("http://admin:admin@localhost/litecart/admin/login.php");
     driver.findElement(By.name("username")).click();
     driver.findElement(By.name("username")).clear();
@@ -164,7 +166,7 @@ public class ApplicationManager {
     driver.findElement(By.name("login")).click();
   }
 
-  protected void stop() {
+  public void stop() {
     driver.quit();
     driver = null;
   }

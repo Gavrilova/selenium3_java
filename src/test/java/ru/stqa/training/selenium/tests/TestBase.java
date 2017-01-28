@@ -1,7 +1,8 @@
-package ru.stqa.training.selenium;
+package ru.stqa.training.selenium.tests;
 
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
+import ru.stqa.training.selenium.appmanager.ApplicationManager;
 
 /**
  * Created by irinagavrilova on 1/28/17.
