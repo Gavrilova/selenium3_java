@@ -51,6 +51,7 @@ public class NavigationHelper extends HelperBase {
     gotoCatalogPage();
     click(By.xpath("//li[@id='doc-catalog']//span[.='Catalog']"));
   }
+
   public void choosingCategoryToEdit() {
     openNewSubMenu();
     click(By.xpath("//table[@class='dataTable']/tbody/tr[5]/td[5]/a/i"));
@@ -68,7 +69,6 @@ public class NavigationHelper extends HelperBase {
   public void gotoManufacturesPage() {
     click(By.linkText("Manufacturers"));
   }
-
 
   public void logoutAdminSession() {
     driver.findElement(By.xpath("//td[@id='sidebar']/div[2]/a[5]/i")).click();

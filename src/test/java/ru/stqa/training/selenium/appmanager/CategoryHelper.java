@@ -1,6 +1,8 @@
 package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.stqa.training.selenium.model.CategoryData;
 
@@ -29,5 +31,22 @@ public class CategoryHelper extends HelperBase {
   public void submitCategoryDeleting() {
     click(By.name("delete"));
     driver.switchTo().alert().accept();
+  }
+
+  public boolean isElementPresent(WebDriver driver, By locator) {
+    try {
+      driver.findElement(locator);
+      return true;
+    } catch (NoSuchElementException ex) {
+      return false;
+    }
+  }
+
+  public boolean areElementsPresent(WebDriver driver, By locator) {
+    return driver.findElements(locator).size() > 0;
+  }
+
+  public int quantityElementsPresent(WebDriver driver, By locator) {
+    return driver.findElements(locator).size();
   }
 }
