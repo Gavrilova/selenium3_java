@@ -1,6 +1,7 @@
 package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.ArrayList;
@@ -82,6 +83,9 @@ public class NavigationHelper extends HelperBase {
   public void gotoPage(By locator) {
    click(locator);
  }
+  public void gotoPage(WebElement element) {
+    element.click();
+  }
 
   public void logoutAdminSession() {
 

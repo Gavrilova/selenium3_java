@@ -1,6 +1,7 @@
 package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.stqa.training.selenium.model.CategoryData;
@@ -36,39 +37,46 @@ public class CategoryHelper extends HelperBase {
   }
 
 
-
-  public boolean areElementsPresent( By locator) {
-    return driver.findElements(locator).size() > 0;
+  public boolean areElementsPresent(By locator) {
+    try {
+      return driver.findElements(locator).size() > 0;
+    } catch (InvalidSelectorException ex) {
+      return false;
+    }
   }
+
+
   public List<WebElement> listElementsPresent(By locator) {
     if (isElementPresent(locator)) {
-    return driver.findElements(locator);}
-    else {
+      return driver.findElements(locator);
+    } else {
       return null;
     }
   }
 
-  public String urlCurrent (By locator) {
+  public String urlCurrent(By locator) {
     driver.findElement(locator).click();
     return driver.getCurrentUrl();
   }
 
   public int quantityElementsPresent(By locator) {
-    int i=0;
+    int i = 0;
     if (isElementPresent(locator)) {
-      return driver.findElements(locator).size();}
-    else {
-    return i;}
+      return driver.findElements(locator).size();
+    } else {
+      return i;
+    }
   }
 
-  public  String[]  list(By locator, int size) {
+
+  public String[] list(By locator, int size) {
     List<WebElement> commandMenu = listElementsPresent(locator);
     String[] commandText = new String[size];
     int i = 0;
     for (WebElement e : commandMenu) {
       String str = e.getText();
       commandText[i] = str;
- //     System.out.println(str);
+      //     System.out.println(str);
       i++;
     }
     return commandText;

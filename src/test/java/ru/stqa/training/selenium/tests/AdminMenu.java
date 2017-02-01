@@ -1,12 +1,9 @@
 package ru.stqa.training.selenium.tests;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-import java.util.List;
-
-import static org.testng.Assert.assertTrue;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by irinagavrilova on 1/30/17.
@@ -16,9 +13,7 @@ public class AdminMenu extends TestBase {
   public void testAdminMenu() {
 
     int commandMenuSize = app.getCategoryHelper().quantityElementsPresent(By.cssSelector("li#app-"));
-
     String[] commandText = app.getCategoryHelper().list(By.cssSelector("li#app-"), commandMenuSize);
-
     for (int j = 0; j < commandMenuSize; j++) {
       app.getNavigationHelper().gotoPage(By.linkText(commandText[j]));
       assertTrue(app.getNavigationHelper().isElementPresent(By.cssSelector("h1")));
@@ -31,7 +26,6 @@ public class AdminMenu extends TestBase {
         }
       }
     }
-
     app.getNavigationHelper().gotoHomePage();
     app.getNavigationHelper().logoutAdminSession();
   }
