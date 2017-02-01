@@ -1,6 +1,7 @@
 package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 /**
@@ -10,10 +11,12 @@ public class HelperBase {
   protected ChromeDriver driver;
 
   public HelperBase(ChromeDriver driver) {
+
     this.driver = driver;
   }
 
   protected void click(By locator) {
+
     driver.findElement(locator).click();
   }
 
@@ -26,5 +29,14 @@ public class HelperBase {
   protected void set(By locator, String quantity) {
     click(locator);
     driver.findElement(locator).sendKeys(quantity);
+  }
+
+  public boolean isElementPresent(By locator) {
+    try {
+      driver.findElement(locator);
+      return true;
+    } catch (NoSuchElementException ex) {
+      return false;
+    }
   }
 }

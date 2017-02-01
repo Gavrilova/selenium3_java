@@ -3,6 +3,8 @@ package ru.stqa.training.selenium.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.ArrayList;
+
 /**
  * Created by irinagavrilova on 1/28/17.
  */
@@ -58,6 +60,7 @@ public class NavigationHelper extends HelperBase {
   }
 
   public void gotoProductGroupPage() {
+
     click(By.linkText("Product Groups"));
   }
 
@@ -67,10 +70,21 @@ public class NavigationHelper extends HelperBase {
   }
 
   public void gotoManufacturesPage() {
+
     click(By.linkText("Manufacturers"));
   }
+  public void gotoHomePage() {
+
+    click(By.cssSelector("i.fa-home"));
+  }
+
+
+  public void gotoPage(By locator) {
+   click(locator);
+ }
 
   public void logoutAdminSession() {
+
     driver.findElement(By.xpath("//td[@id='sidebar']/div[2]/a[5]/i")).click();
   }
 }

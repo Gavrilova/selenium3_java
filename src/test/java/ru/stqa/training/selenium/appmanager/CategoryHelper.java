@@ -1,10 +1,11 @@
 package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.stqa.training.selenium.model.CategoryData;
+
+import java.util.List;
 
 /**
  * Created by irinagavrilova on 1/28/17.
@@ -25,6 +26,7 @@ public class CategoryHelper extends HelperBase {
   }
 
   public void initAddNewCategory() {
+
     click(By.linkText("Add New Category"));
   }
 
@@ -33,20 +35,43 @@ public class CategoryHelper extends HelperBase {
     driver.switchTo().alert().accept();
   }
 
-  public boolean isElementPresent(WebDriver driver, By locator) {
-    try {
-      driver.findElement(locator);
-      return true;
-    } catch (NoSuchElementException ex) {
-      return false;
+
+
+  public boolean areElementsPresent( By locator) {
+    return driver.findElements(locator).size() > 0;
+  }
+  public List<WebElement> listElementsPresent(By locator) {
+    if (isElementPresent(locator)) {
+    return driver.findElements(locator);}
+    else {
+      return null;
     }
   }
 
-  public boolean areElementsPresent(WebDriver driver, By locator) {
-    return driver.findElements(locator).size() > 0;
+  public String urlCurrent (By locator) {
+    driver.findElement(locator).click();
+    return driver.getCurrentUrl();
   }
 
-  public int quantityElementsPresent(WebDriver driver, By locator) {
-    return driver.findElements(locator).size();
+  public int quantityElementsPresent(By locator) {
+    int i=0;
+    if (isElementPresent(locator)) {
+      return driver.findElements(locator).size();}
+    else {
+    return i;}
   }
+
+  public  String[]  list(By locator, int size) {
+    List<WebElement> commandMenu = listElementsPresent(locator);
+    String[] commandText = new String[size];
+    int i = 0;
+    for (WebElement e : commandMenu) {
+      String str = e.getText();
+      commandText[i] = str;
+ //     System.out.println(str);
+      i++;
+    }
+    return commandText;
+  }
+
 }
