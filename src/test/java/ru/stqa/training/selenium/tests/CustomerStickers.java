@@ -17,9 +17,6 @@ public class CustomerStickers extends TestBase {
   public void testCustomerStickers() {
 
     app.getNavigationHelper().gotoPage(By.cssSelector("i.fa-chevron-circle-left"));
- //   System.out.println(app.getCategoryHelper().isElementPresent(By.cssSelector("li.product")));
-
-
     List<WebElement> productSet = app.getCategoryHelper().listElementsPresent(By.cssSelector("li.product"));
     for (WebElement element : productSet) {
       assertEquals((element.findElements(By.cssSelector("div.sticker")).size()) == 1, true);

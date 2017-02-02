@@ -60,11 +60,7 @@ public class CategoryHelper extends HelperBase {
   }
 
   public int quantityElementsPresent(By locator) {
-    if (isElementPresent(locator)) {
       return driver.findElements(locator).size();
-    } else {
-      return 0;
-    }
   }
 
 
