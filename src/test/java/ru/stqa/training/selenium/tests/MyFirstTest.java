@@ -34,7 +34,8 @@ public class MyFirstTest {
   @Test
   public void myFirstTest() {
     driver.get("http://www.google.com");
-    driver.findElement(By.name("q")).sendKeys("webdriver");
+//  driver.findElement(By.name("q")).sendKeys("webdriver");
+    wait.until((WebDriver d) -> d.findElement(By.name("q"))).sendKeys("webdriver");
     driver.findElement(By.name("btnG")).click();
     wait.until(titleIs("webdriver - Google Search"));
   }

@@ -8,7 +8,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
  * Created by irinagavrilova on 1/28/17.
  */
 public class HelperBase {
-  protected ChromeDriver driver;
+  public ChromeDriver driver;
 
   public HelperBase(ChromeDriver driver) {
 
