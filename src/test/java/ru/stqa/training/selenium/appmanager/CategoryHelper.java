@@ -1,7 +1,6 @@
 package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.InvalidSelectorException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import ru.stqa.training.selenium.model.CategoryData;
@@ -36,22 +35,8 @@ public class CategoryHelper extends HelperBase {
     driver.switchTo().alert().accept();
   }
 
-
-  public boolean areElementsPresent(By locator) {
-    try {
-      return driver.findElements(locator).size() > 0;
-    } catch (InvalidSelectorException ex) {
-      return false;
-    }
-  }
-
-
   public List<WebElement> listElementsPresent(By locator) {
-    if (isElementPresent(locator)==true) {
-      return driver.findElements(locator);
-    } else {
-      return null;
-    }
+    return driver.findElements(locator);
   }
 
   public String urlCurrent(By locator) {
@@ -60,7 +45,7 @@ public class CategoryHelper extends HelperBase {
   }
 
   public int quantityElementsPresent(By locator) {
-      return driver.findElements(locator).size();
+    return driver.findElements(locator).size();
   }
 
 
