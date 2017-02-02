@@ -47,7 +47,7 @@ public class CategoryHelper extends HelperBase {
 
 
   public List<WebElement> listElementsPresent(By locator) {
-    if (isElementPresent(locator)) {
+    if (isElementPresent(locator)==true) {
       return driver.findElements(locator);
     } else {
       return null;
