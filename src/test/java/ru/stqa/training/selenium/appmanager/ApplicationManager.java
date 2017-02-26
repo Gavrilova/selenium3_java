@@ -16,6 +16,7 @@ public class ApplicationManager {
   private SessionHelper sessionHelper;
   private NavigationHelper navigationHelper;
   private ProductHelper productHelper;
+  private CountriesHelper countriesHelper;
 
   public void init() {
     driver = new ChromeDriver();
@@ -24,6 +25,7 @@ public class ApplicationManager {
     navigationHelper = new NavigationHelper(driver);
     sessionHelper = new SessionHelper(driver);
     categoryHelper = new CategoryHelper(driver);
+    countriesHelper = new CountriesHelper(driver);
     sessionHelper.login("admin", "admin");
   }
 
@@ -43,4 +45,6 @@ public class ApplicationManager {
   public CategoryHelper getCategoryHelper() {
     return categoryHelper;
   }
+
+  public CountriesHelper getCountriesHelper() {return countriesHelper;}
 }
