@@ -8,8 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.safari.SafariDriver;
-import org.openqa.selenium.safari.SafariOptions;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.Assert.assertEquals;
@@ -19,17 +18,15 @@ import static org.junit.Assert.assertEquals;
  * Created by irinagavrilova on 2/2/17.
  */
 
-public class MyFirstTestSafari {
+public class MyFirstTestChrome {
 
   public static final String campaignSelector = "strong.campaign-price";
   public static final String regularSelector = "s.regular-price";
-  private SafariDriver driver;
+  private ChromeDriver driver;
 
   @Before
   public void start() {
-    SafariOptions options = new SafariOptions();
-    options.setUseCleanSession(true); //if you wish safari to forget session every time
-    driver = new SafariDriver(options);
+    driver = new ChromeDriver();
   }
 
   @Test

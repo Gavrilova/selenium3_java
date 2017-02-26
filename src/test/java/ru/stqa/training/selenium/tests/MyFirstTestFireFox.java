@@ -4,12 +4,9 @@ package ru.stqa.training.selenium.tests;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.safari.SafariDriver;
-import org.openqa.selenium.safari.SafariOptions;
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import static org.junit.Assert.assertEquals;
@@ -19,17 +16,18 @@ import static org.junit.Assert.assertEquals;
  * Created by irinagavrilova on 2/2/17.
  */
 
-public class MyFirstTestSafari {
+public class MyFirstTestFireFox {
 
   public static final String campaignSelector = "strong.campaign-price";
   public static final String regularSelector = "s.regular-price";
-  private SafariDriver driver;
+  private WebDriver driver;
 
   @Before
   public void start() {
-    SafariOptions options = new SafariOptions();
-    options.setUseCleanSession(true); //if you wish safari to forget session every time
-    driver = new SafariDriver(options);
+    DesiredCapabilities caps = new DesiredCapabilities();
+    caps.setCapability(FirefoxDriver.MARIONETTE, false);
+    driver = new FirefoxDriver(caps);
+    System.out.println(((HasCapabilities) driver).getCapabilities());
   }
 
   @Test
@@ -84,6 +82,8 @@ public class MyFirstTestSafari {
           String colorCampaigh, String fontCampaigh, String colorRegular, String textDecorationRegular) {
     //verify that Campaign price is red and bold
     //verify that Regular price is grey and line-through
+
+
     assertEquals(textDecorationRegular, "line-through");
 
     String[] redColorArray = {"rgb(204, 0, 0)", "#cc0000", "#c00", "rgba(204, 0, 0, 1)"};
