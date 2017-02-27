@@ -1,8 +1,10 @@
 package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 
@@ -79,7 +81,12 @@ public class NavigationHelper extends HelperBase {
     click(By.cssSelector("i.fa-home"));
   }
 
-
+  public void gotoCustomersHomePage(){
+    driver.get("http://localhost/litecart/en/");
+  }
+  public void gotoRegisterPage(){
+    driver.get("http://localhost/litecart/en/create_account");
+  }
   public void gotoPage(By locator) {
    click(locator);
  }
@@ -87,8 +94,15 @@ public class NavigationHelper extends HelperBase {
     element.click();
   }
 
+
   public void logoutAdminSession() {
 
     driver.findElement(By.xpath("//td[@id='sidebar']/div[2]/a[5]/i")).click();
+  }
+
+  public void logoutCustomersSession() {
+    click(By.xpath("//*[@id=\"box-account\"]/div/ul/li[4]/a"));
+    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("div.notice.success")));
+
   }
 }

@@ -17,6 +17,10 @@ public class ApplicationManager {
   private NavigationHelper navigationHelper;
   private ProductHelper productHelper;
   private CountriesHelper countriesHelper;
+  private RegisterHelper registerHelper;
+
+  public ApplicationManager() {
+  }
 
   public void init() {
     driver = new ChromeDriver();
@@ -26,6 +30,7 @@ public class ApplicationManager {
     sessionHelper = new SessionHelper(driver);
     categoryHelper = new CategoryHelper(driver);
     countriesHelper = new CountriesHelper(driver);
+    registerHelper = new RegisterHelper(driver);
     sessionHelper.login("admin", "admin");
   }
 
@@ -47,4 +52,6 @@ public class ApplicationManager {
   }
 
   public CountriesHelper getCountriesHelper() {return countriesHelper;}
+
+  public RegisterHelper getRegisterHelper() {return registerHelper;}
 }
