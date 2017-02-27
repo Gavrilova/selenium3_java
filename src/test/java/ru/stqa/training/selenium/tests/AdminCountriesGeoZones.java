@@ -16,6 +16,9 @@ public class AdminCountriesGeoZones extends TestBase {
     app.getCountriesHelper().countriesCollection();
     ArrayList<String> zones = app.getCountriesHelper().countriesZones();
     app.getCountriesHelper().checkZones(zones);
-
+    app.getNavigationHelper().gotoHomePage();
+    app.getNavigationHelper().gotoPage(By.linkText("Geo Zones"));
+    ArrayList<String> countries = app.getCountriesHelper().geoZones();
+    app.getCountriesHelper().checkGeoZones(countries);
   }
 }
