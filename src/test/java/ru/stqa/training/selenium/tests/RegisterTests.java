@@ -1,9 +1,6 @@
 package ru.stqa.training.selenium.tests;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
-import ru.stqa.training.selenium.model.RegisterData;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -16,13 +13,12 @@ public class RegisterTests extends TestBase {
   public void RegisterTests() throws InterruptedException {
 
     app.getNavigationHelper().gotoRegisterPage();
-    String pass = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-    String name = "Irina" + pass;
-    String email = "gavrilova.irina."+pass+ "@gmail.com";
-    System.out.println(pass);
-    app.getRegisterHelper().fillForm(name, email, pass);
+    String password = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+    String name = "Irina" + password;
+    String email = "gavrilova.irina." + password + "@gmail.com";
+    app.getRegisterHelper().fillForm(name, email, password);
     app.getNavigationHelper().logoutCustomersSession();
-    app.getRegisterHelper().customerLogin(email, pass);
+    app.getRegisterHelper().customerLogin(email, password);
     app.getNavigationHelper().logoutCustomersSession();
   }
 

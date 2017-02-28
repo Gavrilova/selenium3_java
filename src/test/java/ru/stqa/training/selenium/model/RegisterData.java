@@ -11,8 +11,8 @@ public class RegisterData {
   private final String city;
   private final String email;
   private final String phone;
- // private final String country;
- // private final String state;
+  // private final String country;
+  // private final String state;
   private final String password;
   private final String confirmedPassword;
 
@@ -26,17 +26,17 @@ public class RegisterData {
     this.city = city;
     this.email = email;
     this.phone = phone;
-  //  this.country = country;
-  //  this.state = state;
+    //  this.country = country;
+    //  this.state = state;
     this.password = password;
     this.confirmedPassword = confirmedPassword;
   }
 
- // public String getState() {return state;}
+  // public String getState() {return state;}
 
- // public String getCountry() {
- //   return country;
- // }
+  // public String getCountry() {
+  //   return country;
+  // }
 
   public String getPhone() {
     return phone;
