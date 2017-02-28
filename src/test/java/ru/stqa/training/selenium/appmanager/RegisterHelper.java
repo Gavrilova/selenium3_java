@@ -2,6 +2,7 @@ package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -42,7 +43,7 @@ public class RegisterHelper extends HelperBase {
     type(By.name("postcode"), "78749");
     type(By.name("city"), "A");
     selectCountry("US");
-    selectZone("Texas");
+    selectZone("TX");
     type(By.name("email"), email);
     type(By.name("phone"), "+15122039062");
     type(By.name("password"), pass);
@@ -61,12 +62,10 @@ public class RegisterHelper extends HelperBase {
   }
 
   public void selectCountry(String country) {
-    Select sel = new Select(driver.findElement(By.name("country_code")));
-    sel.selectByValue(country);
+    new Select(driver.findElement(By.cssSelector("select.select2-hidden-accessible"))).selectByValue(country);
   }
 
   public void selectZone(String zone) {
-    Select sel = new Select(driver.findElement(By.name("zone_code")));
-    sel.selectByVisibleText(zone);
+    new Select(driver.findElementsByCssSelector("select").get(1)).selectByValue(zone);
   }
 }
