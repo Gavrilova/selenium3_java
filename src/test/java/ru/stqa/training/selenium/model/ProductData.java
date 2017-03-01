@@ -1,5 +1,7 @@
 package ru.stqa.training.selenium.model;
 
+import java.io.File;
+
 public class ProductData {
   private String generalCode;
   private String SKU;
@@ -8,8 +10,15 @@ public class ProductData {
   private String nameEng;
   private String shortDescriptionEng;
   private String quantity;
+  private File photo;
 
 
+
+
+  public ProductData withPhoto(File photo) {
+    this.photo = photo;
+    return this;
+  }
 
   public ProductData withGeneralCode(String generalCode) {
     this.generalCode = generalCode;
@@ -73,4 +82,6 @@ public class ProductData {
   public String getQuantity() {
     return quantity;
   }
+
+  public File getPhoto() {return photo;}
 }

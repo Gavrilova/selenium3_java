@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.io.File;
+
 /**
  * Created by irinagavrilova on 1/28/17.
  */
@@ -30,6 +32,12 @@ public class HelperBase {
   protected void set(By locator, String quantity) {
     click(locator);
     driver.findElement(locator).sendKeys(quantity);
+  }
+
+  protected void attach(By locator, File file) {
+    if (file != null && file.isFile()) {
+      driver.findElement(locator).sendKeys(file.getAbsolutePath());
+    }
   }
 
   public boolean isElementPresent(By locator) {
