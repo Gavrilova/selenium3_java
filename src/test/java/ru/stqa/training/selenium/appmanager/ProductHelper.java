@@ -2,12 +2,15 @@ package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.training.selenium.model.ProductData;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -166,5 +169,18 @@ public class ProductHelper extends HelperBase {
     fillInformationTab(productData);
     fillPricesTab(productData);
     submitAddNewProduct();
+  }
+
+  public int productCount() {
+    List<WebElement> list = driver.findElementsByCssSelector("table.dataTable a");
+    ArrayList<String> hrefList = new ArrayList<>();
+    List<Integer> productId = new ArrayList<>();
+    for (WebElement element: list) {
+      hrefList.add(element.getAttribute("href"));
+    }
+    for (int i=0; i<hrefList.size(); i++) {
+      //System.out.println(hrefList.get(i));
+    }
+    return hrefList.size();
   }
 }
