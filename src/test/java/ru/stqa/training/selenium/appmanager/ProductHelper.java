@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.training.selenium.model.ProductData;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -95,10 +96,25 @@ public class ProductHelper extends HelperBase {
     set(locator, data);
   }
 
-  private void fillQuantity(ProductData productData) {
-    click(By.name("quantity"));
-    driver.findElement(By.name("quantity")).clear();
-    set(By.name("quantity"), productData.getQuantity());
+  public int productCount() {
+    List<WebElement> list = driver.findElementsByCssSelector("table.dataTable img");
+    return list.size();
+  }
+
+  public ArrayList<String> links() {
+    List<WebElement> list = driver.findElementsByCssSelector("table.dataTable a");
+    ArrayList<String> hrefList = new ArrayList<>();
+    for (WebElement element : list) {
+      hrefList.add(element.getAttribute("href"));
+    }
+    return hrefList;
+  }
+
+  public void accordance(String link, String name, String generalCode) {
+    driver.get(link);
+    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.name("name[en]")));
+    name.equals(driver.findElement(By.name("name[en]")).getText());
+    generalCode.equals(driver.findElement(By.name("code")).getText());
   }
 
   public void fillGeneralTab(ProductData productData) {
@@ -170,8 +186,5 @@ public class ProductHelper extends HelperBase {
     submitAddNewProduct();
   }
 
-  public int productCount() {
-    List<WebElement> list = driver.findElementsByCssSelector("table.dataTable img");
-    return list.size();
-  }
+
 }
