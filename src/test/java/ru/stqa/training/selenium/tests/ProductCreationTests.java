@@ -39,7 +39,7 @@ public class ProductCreationTests extends TestBase {
     Assert.assertEquals((after - before > 0), true);
     ArrayList<String> hrefAfter = app.productPage().links();
     hrefAfter.removeAll(hrefBefore);
-    hrefAfter.get(0); //product has two links in Catalog: name and Edit pen button
+    hrefAfter.get(0); //product has two links in raw in Catalog: name and Edit pen button
     app.productPage().accordance(hrefAfter.get(0), name, generalCode);
 
   }

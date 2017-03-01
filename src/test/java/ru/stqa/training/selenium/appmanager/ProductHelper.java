@@ -124,6 +124,9 @@ public class ProductHelper extends HelperBase {
     type(By.name("name[en]"), productData.getNameEng());
     type(By.name("code"), productData.getGeneralCode());
     //checked
+    if (!driver.findElements(By.name("categories[]")).get(0).isSelected()) {
+      driver.findElements(By.name("categories[]")).get(0).click();
+    }
     if (!driver.findElements(By.name("categories[]")).get(2).isSelected()) {
       driver.findElements(By.name("categories[]")).get(2).click();
     }
