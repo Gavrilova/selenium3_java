@@ -53,7 +53,7 @@ public class ProductHelper extends HelperBase {
     type(By.name("prices[USD]"), productData.getPriceUSD());
     click(By.xpath("//a[@id='add-campaign']/i"));
 
-    type(By.name("campaigns[new_1][percentage]"), productData.getCompaingsPercentage());
+    type(By.name("campaigns[new_1][percentage]"), productData.getCampaignsPercentage());
     click(By.name("campaigns[new_1][percentage]"));
     click(By.name("save"));
   }
@@ -77,6 +77,7 @@ public class ProductHelper extends HelperBase {
 
   public void submitAddNewProduct() {
     click(By.cssSelector("i.fa.fa-floppy-o"));
+    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("div.notice.success")));
   }
 
   public void setDatepicker(By locator, String date) {//C# code: new WebDriverWait(driver, SECONDS).Until<boolean>(d => driver.findElement(By.cssSelector(cssSelector)).isDisplayed();
@@ -86,20 +87,10 @@ public class ProductHelper extends HelperBase {
     driver.findElement(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[11]/td/strong")).click();
   }
 
-  public void fillGeneralTab(ProductData productData) {
-    click(By.xpath("//*[@id=\"content\"]/form/div/ul/li[1]/a"));
-    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.name("default_category_id")));
-    driver.findElements(By.name("status")).get(0).click();
-    type(By.name("name[en]"), productData.getNameEng());
-    type(By.name("code"), productData.getGeneralCode());
-    new Select(driver.findElement(By.name("default_category_id"))).getFirstSelectedOption();
-    driver.findElements(By.name("product_groups[]")).get(1).click();
-    fillQuantity(productData);
-    click(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[8]/td/table/tbody/tr/td[2]/strong"));
-    attach(By.name("new_images[]"), productData.getPhoto());
-    setDatepicker(By.name("date_valid_from"), productData.getDataValidFrom());
-    setDatepicker(By.name("date_valid_to"), productData.getDataValidTo());
-
+  private void setDecimalType(By locator, String data) {
+    click(locator);
+    driver.findElement(locator).clear();
+    set(locator, data);
   }
 
   private void fillQuantity(ProductData productData) {
@@ -108,6 +99,26 @@ public class ProductHelper extends HelperBase {
     set(By.name("quantity"), productData.getQuantity());
   }
 
+  public void fillGeneralTab(ProductData productData) {
+    click(By.xpath("//*[@id=\"content\"]/form/div/ul/li[1]/a"));
+    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.name("default_category_id")));
+    driver.findElements(By.name("status")).get(0).click();
+    type(By.name("name[en]"), productData.getNameEng());
+    type(By.name("code"), productData.getGeneralCode());
+    //checked
+    if (!driver.findElements(By.name("categories[]")).get(2).isSelected()) {
+      driver.findElements(By.name("categories[]")).get(2).click();
+    }
+    driver.findElements(By.name("product_groups[]")).get(1).click();
+    setDecimalType(By.name("quantity"), productData.getQuantity());
+    click(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[8]/td/table/tbody/tr/td[2]/strong"));
+    attach(By.name("new_images[]"), productData.getPhoto());
+    setDatepicker(By.name("date_valid_from"), productData.getDataValidFrom());
+    setDatepicker(By.name("date_valid_to"), productData.getDataValidTo());
+
+  }
+
+
   public void fillInformationTab(ProductData productData) {
     click(By.xpath("//*[@id=\"content\"]/form/div/ul/li[2]/a")); //gotoInformationTab
     new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.name("manufacturer_id")));
@@ -115,7 +126,7 @@ public class ProductHelper extends HelperBase {
     type(By.name("keywords"), productData.getKeywords());
     type(By.name("short_description[en]"), productData.getShortDescriptionEng());
     type(By.cssSelector("div.trumbowyg-editor"), productData.getDescriptionEng());
-//head_title[en]
+    //head_title[en]
     type(By.name("head_title[en]"), productData.getHeadTitle());
     //meta_description[en]
     type(By.name("meta_description[en]"), productData.getMetaDescriptionEng());
@@ -124,9 +135,31 @@ public class ProductHelper extends HelperBase {
   public void fillPricesTab(ProductData productData) {
     click(By.xpath("//*[@id=\"content\"]/form/div/ul/li[4]/a"));     //gotoPriceTab
     new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.name("tax_class_id")));
-
-
+    //purchase_price
+    setDecimalType(By.name("purchase_price"), productData.getPurchasePrice());
+    click(By.cssSelector("h2")); //h2 - not unique locator!
+    //purchase_price_currency_code
+    new Select(driver.findElement(By.name("purchase_price_currency_code"))).selectByValue("USD");
+    //prices[USD]
+    setDecimalType(By.name("prices[USD]"), productData.getPriceUSD());
+    click(By.cssSelector("h2"));
+    //gross_prices[USD]
+    // after clicking on the Save button the value of gross_prices[USD] will be reset to zero
+    setDecimalType(By.name("gross_prices[USD]"), productData.getGrossPricesUSD());
+    click(By.cssSelector("h2"));
+    //prices[EUR]
+    setDecimalType(By.name("prices[EUR]"), productData.getPriceEUR());
+    click(By.cssSelector("h2"));
+    //gross_prices[EUR]
+    // after clicking on the Save button the value of gross_prices[USD] will be reset to zero
+    setDecimalType(By.name("gross_prices[EUR]"), productData.getGrossPricesEUR());
+    click(By.cssSelector("h2"));
+    //set Campaigns
+    click(By.xpath("//a[@id='add-campaign']/i"));
+    type(By.name("campaigns[new_1][percentage]"), productData.getCampaignsPercentage());
+    click(By.name("campaigns[new_1][percentage]"));
   }
+
 
   public void fillThreeTabs(ProductData productData) {
     fillGeneralTab(productData);

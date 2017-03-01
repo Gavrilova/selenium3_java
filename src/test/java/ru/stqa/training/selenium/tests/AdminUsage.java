@@ -24,7 +24,7 @@ public class AdminUsage extends TestBase {
     app.productPage().initEditProduct();
     app.productPage().fillProductForm(
             new ProductData().withGeneralCode("RD009").withSKU("RD009")
-            .withPriceUSD("10.0000").withCompaingsPercentage("10").withNameEng("Big Green Duck")
+            .withPriceUSD("10.0000").withCampaingnsPercentage("10").withNameEng("Big Green Duck")
             .withShortDescriptionEng("Best big green duck ever").withQuantity("\\undefined"));
     app.goTo().choosingProductInCategories();
     app.productPage().submitProductDeleting();

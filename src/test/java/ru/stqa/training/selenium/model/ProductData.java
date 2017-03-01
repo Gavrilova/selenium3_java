@@ -5,8 +5,7 @@ import java.io.File;
 public class ProductData {
   private String generalCode;
   private String SKU;
-  private String priceUSD;
-  private String compaingsPercentage;
+  private String campaignsPercentage;
   private String nameEng;
   private String shortDescriptionEng;
   private String quantity;
@@ -17,6 +16,12 @@ public class ProductData {
   private String descriptionEng;
   private String headTitle;
   private String metaDescriptionEng;
+  private String purchasePrice;
+  private String priceUSD;
+  private String grossPricesUSD;
+  private String priceEUR;
+  private String grossPricesEUR;
+
 
   public ProductData withPhoto(File photo) {
     this.photo = photo;
@@ -38,8 +43,8 @@ public class ProductData {
     return this;
   }
 
-  public ProductData withCompaingsPercentage(String compaingsPercentage) {
-    this.compaingsPercentage = compaingsPercentage;
+  public ProductData withCampaingnsPercentage(String compaingsPercentage) {
+    this.campaignsPercentage = compaingsPercentage;
     return this;
   }
 
@@ -88,6 +93,25 @@ public class ProductData {
     return this;
   }
 
+  public ProductData withPurchasePrice(String purchasePrice) {
+    this.purchasePrice = purchasePrice;
+    return this;
+  }
+
+  public ProductData withPriceEUR(String priceEURO) {
+    this.priceEUR = priceEURO;
+    return this;
+  }
+
+  public ProductData withGrossPricesUSD(String grossPricesUSD) {
+    this.grossPricesUSD = grossPricesUSD;
+    return this;
+  }
+
+  public ProductData withGrossPricesEUR(String getGrossPricesEUR) {
+    this.grossPricesEUR = getGrossPricesEUR;
+    return this;
+  }
 
   public String getGeneralCode() { return generalCode; }
 
@@ -99,8 +123,8 @@ public class ProductData {
     return priceUSD;
   }
 
-  public String getCompaingsPercentage() {
-    return compaingsPercentage;
+  public String getCampaignsPercentage() {
+    return campaignsPercentage;
   }
 
   public String getNameEng() {
@@ -141,6 +165,22 @@ public class ProductData {
 
   public String getMetaDescriptionEng() {
     return metaDescriptionEng;
+  }
+
+  public String getPurchasePrice() {
+    return purchasePrice;
+  }
+
+  public String getPriceEUR() {
+    return priceEUR;
+  }
+
+  public String getGrossPricesUSD() {
+    return grossPricesUSD;
+  }
+
+  public String getGrossPricesEUR() {
+    return grossPricesEUR;
   }
 
 }
