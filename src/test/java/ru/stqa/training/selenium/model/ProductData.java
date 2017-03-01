@@ -1,27 +1,54 @@
 package ru.stqa.training.selenium.model;
 
 public class ProductData {
-  private final String generalCode;
-  private final String SKU;
-  private final String priceUSD;
-  private final String compaingsPercentage;
-  private final String nameEng;
-  private final String shortDescriptionEng;
-  private final String quantity;
+  private String generalCode;
+  private String SKU;
+  private String priceUSD;
+  private String compaingsPercentage;
+  private String nameEng;
+  private String shortDescriptionEng;
+  private String quantity;
 
-  public ProductData(String generalCode, String SKU, String priceUSD, String compaingsPercentage, String nameEng, String shortDescriptionEng, String quantity) {
+
+
+  public ProductData withGeneralCode(String generalCode) {
     this.generalCode = generalCode;
-    this.SKU = SKU;
-    this.priceUSD = priceUSD;
-    this.compaingsPercentage = compaingsPercentage;
-    this.nameEng = nameEng;
-    this.shortDescriptionEng = shortDescriptionEng;
-    this.quantity = quantity;
+    return this;
   }
 
-  public String getGeneralCode() {
-    return generalCode;
+  public ProductData withSKU(String SKU) {
+    this.SKU = SKU;
+    return this;
   }
+
+  public ProductData withPriceUSD(String priceUSD) {
+    this.priceUSD = priceUSD;
+    return this;
+  }
+
+  public ProductData withCompaingsPercentage(String compaingsPercentage) {
+    this.compaingsPercentage = compaingsPercentage;
+    return this;
+  }
+
+  public ProductData withNameEng(String nameEng) {
+    this.nameEng = nameEng;
+    return this;
+  }
+
+  public ProductData withShortDescriptionEng(String shortDescriptionEng) {
+    this.shortDescriptionEng = shortDescriptionEng;
+    return this;
+  }
+
+  public ProductData withQuantity(String quantity) {
+    this.quantity = quantity;
+    return this;
+  }
+
+
+
+  public String getGeneralCode() {return generalCode;}
 
   public String getSKU() {
     return SKU;

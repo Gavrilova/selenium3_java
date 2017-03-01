@@ -11,7 +11,7 @@ public class ProductCreationTests extends TestBase {
   public void testProductCreation() {
     app.goTo().gotoCatalogPage();
     app.productPage().initAddNewProduct();
-    app.productPage().fillThreeTabsProductForm();
+    app.productPage().fillThreeTabs();
 
   }
 }

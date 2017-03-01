@@ -118,7 +118,7 @@ public class ProductHelper extends HelperBase {
 
   }
 
-  public void fillThreeTabsProductForm() {
+  public void fillThreeTabs() {
     fillGeneralTab();
     fillInformationTab();
     fillPricesTab();
