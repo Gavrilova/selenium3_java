@@ -14,10 +14,14 @@ public class ProductCreationTests extends TestBase {
   public void testProductCreation() {
     app.goTo().gotoCatalogPage();
     app.productPage().initAddNewProduct();
-    String generalCode = "rd0101"; //should be unique to each product!
+    String generalCode = "rd0100"; //should be unique to each product!
     File photo = new File("src/test/resources/Zello.png") ;
-    app.productPage().fillThreeTabs(new ProductData().withNameEng("Big Zello duck1")
+    app.productPage().fillThreeTabs(new ProductData().withNameEng("Big Zello duck")
             .withGeneralCode(generalCode).withQuantity("23").withPhoto(photo)
+            .withDataValidFrom("12022017").withDataValidTo("12042018")
+            .withKeywords("keywordsZello").withShortDescriptionEng("short description")
+            .withDescriptionEng("You never get better duck!")
+            .withHeadTitle("HeadTitle Zello duck").withMetaDescriptionEng("Meta Description Zello duck")
 
     );
 

@@ -79,10 +79,11 @@ public class ProductHelper extends HelperBase {
     click(By.cssSelector("i.fa.fa-floppy-o"));
   }
 
-  public void SetDatepicker(String cssSelector, String date) {//C# code: new WebDriverWait(driver, SECONDS).Until<boolean>(d => driver.findElement(By.cssSelector(cssSelector)).isDisplayed();
+  public void setDatepicker(By locator, String date) {//C# code: new WebDriverWait(driver, SECONDS).Until<boolean>(d => driver.findElement(By.cssSelector(cssSelector)).isDisplayed();
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-    driver.findElement(By.cssSelector(cssSelector)).sendKeys(date);
-    driver.findElement(By.cssSelector("body")).click();
+    //driver.findElement(locator).clear();
+    driver.findElement(locator).sendKeys(date);
+    driver.findElement(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[11]/td/strong")).click();
   }
 
   public void fillGeneralTab(ProductData productData) {
@@ -93,19 +94,31 @@ public class ProductHelper extends HelperBase {
     type(By.name("code"), productData.getGeneralCode());
     new Select(driver.findElement(By.name("default_category_id"))).getFirstSelectedOption();
     driver.findElements(By.name("product_groups[]")).get(1).click();
+    fillQuantity(productData);
+    click(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[8]/td/table/tbody/tr/td[2]/strong"));
+    attach(By.name("new_images[]"), productData.getPhoto());
+    setDatepicker(By.name("date_valid_from"), productData.getDataValidFrom());
+    setDatepicker(By.name("date_valid_to"), productData.getDataValidTo());
+
+  }
+
+  private void fillQuantity(ProductData productData) {
     click(By.name("quantity"));
     driver.findElement(By.name("quantity")).clear();
     set(By.name("quantity"), productData.getQuantity());
-    click(By.xpath("//*[@id=\"tab-general\"]/table/tbody/tr[8]/td/table/tbody/tr/td[2]/strong"));
-    attach(By.name("new_images[]"), productData.getPhoto());
-
   }
 
   public void fillInformationTab(ProductData productData) {
     click(By.xpath("//*[@id=\"content\"]/form/div/ul/li[2]/a")); //gotoInformationTab
     new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.name("manufacturer_id")));
-
-
+    new Select(driver.findElement(By.name("manufacturer_id"))).selectByValue("1");
+    type(By.name("keywords"), productData.getKeywords());
+    type(By.name("short_description[en]"), productData.getShortDescriptionEng());
+    type(By.cssSelector("div.trumbowyg-editor"), productData.getDescriptionEng());
+//head_title[en]
+    type(By.name("head_title[en]"), productData.getHeadTitle());
+    //meta_description[en]
+    type(By.name("meta_description[en]"), productData.getMetaDescriptionEng());
   }
 
   public void fillPricesTab(ProductData productData) {

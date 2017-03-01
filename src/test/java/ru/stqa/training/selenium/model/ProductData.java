@@ -11,9 +11,12 @@ public class ProductData {
   private String shortDescriptionEng;
   private String quantity;
   private File photo;
-
-
-
+  private String dataValidFrom;
+  private String dataValidTo;
+  private String keywords;
+  private String descriptionEng;
+  private String headTitle;
+  private String metaDescriptionEng;
 
   public ProductData withPhoto(File photo) {
     this.photo = photo;
@@ -55,9 +58,38 @@ public class ProductData {
     return this;
   }
 
+  public ProductData withDataValidFrom(String dataValidFrom) {
+    this.dataValidFrom = dataValidFrom;
+    return this;
+  }
+
+  public ProductData withDataValidTo(String dataValidTo) {
+    this.dataValidTo = dataValidTo;
+    return this;
+  }
+
+  public ProductData withKeywords(String keywords) {
+    this.keywords = keywords;
+    return this;
+  }
+
+  public ProductData withDescriptionEng(String descriptionEng) {
+    this.descriptionEng = descriptionEng;
+    return this;
+  }
+
+  public ProductData withHeadTitle(String headTitle) {
+    this.headTitle = headTitle;
+    return this;
+  }
+
+  public ProductData withMetaDescriptionEng(String metaDescriptionEng) {
+    this.metaDescriptionEng = metaDescriptionEng;
+    return this;
+  }
 
 
-  public String getGeneralCode() {return generalCode;}
+  public String getGeneralCode() { return generalCode; }
 
   public String getSKU() {
     return SKU;
@@ -83,5 +115,32 @@ public class ProductData {
     return quantity;
   }
 
-  public File getPhoto() {return photo;}
+  public File getPhoto() {
+    return photo;
+  }
+
+  public String getDataValidFrom() {
+    return dataValidFrom;
+  }
+
+  public String getDataValidTo() {
+    return dataValidTo;
+  }
+
+  public String getKeywords() {
+    return keywords;
+  }
+
+  public String getDescriptionEng() {
+    return descriptionEng;
+  }
+
+  public String getHeadTitle() {
+    return headTitle;
+  }
+
+  public String getMetaDescriptionEng() {
+    return metaDescriptionEng;
+  }
+
 }
