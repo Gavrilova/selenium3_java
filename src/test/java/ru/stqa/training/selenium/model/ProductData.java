@@ -113,7 +113,9 @@ public class ProductData {
     return this;
   }
 
-  public String getGeneralCode() { return generalCode; }
+  public String getGeneralCode() {
+    return generalCode;
+  }
 
   public String getSKU() {
     return SKU;
