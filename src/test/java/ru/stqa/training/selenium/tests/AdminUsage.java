@@ -10,24 +10,24 @@ public class AdminUsage extends TestBase {
 
   @Test
   public void testAdminUsage() {
-    app.getNavigationHelper().gotoCatalogPage();
-    app.getNavigationHelper().gotoManufacturesPage();
-    app.getNavigationHelper().gotoAcmeCorpPage();
-    app.getNavigationHelper().gotoCatalogPage();
-    app.getNavigationHelper().gotoProductGroupPage();
-    app.getNavigationHelper().openCatalogMenu();
-    app.getNavigationHelper().gotoCatalogSubMenuPage();
-    app.getCategoryHelper().initAddNewCategory();
-    app.getCategoryHelper().fillCategoryForm(new CategoryData("Big Ducks"));
-    app.getNavigationHelper().choosingProductFromCategories();
-    app.getProductHelper().submitProductDuplicate();
-    app.getProductHelper().initEditProduct();
-    app.getProductHelper().fillProductForm(new ProductData("RD009", "RD009", "10.0000", "10", "Big Green Duck", "Best big green duck ever", "\\undefined"));
-    app.getNavigationHelper().choosingProductInCategories();
-    app.getProductHelper().submitProductDeleting();
-    app.getNavigationHelper().choosingCategoryToEdit();
-    app.getCategoryHelper().submitCategoryDeleting();
-    app.getNavigationHelper().logoutAdminSession();
+    app.goTo().gotoCatalogPage();
+    app.goTo().gotoManufacturesPage();
+    app.goTo().gotoAcmeCorpPage();
+    app.goTo().gotoCatalogPage();
+    app.goTo().gotoProductGroupPage();
+    app.goTo().openCatalogMenu();
+    app.goTo().gotoCatalogSubMenuPage();
+    app.categoryPage().initAddNewCategory();
+    app.categoryPage().fillCategoryForm(new CategoryData("Big Ducks"));
+    app.goTo().choosingProductFromCategories();
+    app.productPage().submitProductDuplicate();
+    app.productPage().initEditProduct();
+    app.productPage().fillProductForm(new ProductData("RD009", "RD009", "10.0000", "10", "Big Green Duck", "Best big green duck ever", "\\undefined"));
+    app.goTo().choosingProductInCategories();
+    app.productPage().submitProductDeleting();
+    app.goTo().choosingCategoryToEdit();
+    app.categoryPage().submitCategoryDeleting();
+    app.goTo().logoutAdminSession();
   }
 
 }

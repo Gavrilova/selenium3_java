@@ -12,13 +12,13 @@ public class AdminCountriesGeoZones extends TestBase {
 
   @Test
   public void AdminCountriesGeoZones() throws InterruptedException {
-    app.getNavigationHelper().gotoPage(By.linkText("Countries"));
-    app.getCountriesHelper().countriesCollection();
-    ArrayList<String> zones = app.getCountriesHelper().countriesZones();
-    app.getCountriesHelper().checkZones(zones);
-    app.getNavigationHelper().gotoHomePage();
-    app.getNavigationHelper().gotoPage(By.linkText("Geo Zones"));
-    ArrayList<String> countries = app.getCountriesHelper().geoZones();
-    app.getCountriesHelper().checkGeoZones(countries);
+    app.goTo().gotoPage(By.linkText("Countries"));
+    app.countriesPage().countriesCollection();
+    ArrayList<String> zones = app.countriesPage().countriesZones();
+    app.countriesPage().checkZones(zones);
+    app.goTo().gotoHomePage();
+    app.goTo().gotoPage(By.linkText("Geo Zones"));
+    ArrayList<String> countries = app.countriesPage().geoZones();
+    app.countriesPage().checkGeoZones(countries);
   }
 }

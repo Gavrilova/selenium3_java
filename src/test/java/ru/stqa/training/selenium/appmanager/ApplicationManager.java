@@ -39,19 +39,19 @@ public class ApplicationManager {
     driver = null;
   }
 
-  public ProductHelper getProductHelper() {
+  public ProductHelper productPage() {
     return productHelper;
   }
 
-  public NavigationHelper getNavigationHelper() {
+  public NavigationHelper goTo() {
     return navigationHelper;
   }
 
-  public CategoryHelper getCategoryHelper() {
+  public CategoryHelper categoryPage() {
     return categoryHelper;
   }
 
-  public CountriesHelper getCountriesHelper() {return countriesHelper;}
+  public CountriesHelper countriesPage() {return countriesHelper;}
 
-  public RegisterHelper getRegisterHelper() {return registerHelper;}
+  public RegisterHelper registerPage() {return registerHelper;}
 }

@@ -10,16 +10,16 @@ import java.util.Date;
  */
 public class RegisterTests extends TestBase {
   @Test
-  public void RegisterTests() throws InterruptedException {
+  public void testRegister() throws InterruptedException {
 
-    app.getNavigationHelper().gotoRegisterPage();
+    app.goTo().gotoRegisterPage();
     String password = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
     String name = "Irina" + password;
     String email = "gavrilova.irina." + password + "@gmail.com";
-    app.getRegisterHelper().fillForm(name, email, password);
-    app.getNavigationHelper().logoutCustomersSession();
-    app.getRegisterHelper().customerLogin(email, password);
-    app.getNavigationHelper().logoutCustomersSession();
+    app.registerPage().fillForm(name, email, password);
+    app.goTo().logoutCustomersSession();
+    app.registerPage().customerLogin(email, password);
+    app.goTo().logoutCustomersSession();
   }
 
 }
