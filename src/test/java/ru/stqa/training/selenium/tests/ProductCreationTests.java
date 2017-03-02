@@ -1,13 +1,14 @@
 package ru.stqa.training.selenium.tests;
 
-import org.junit.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.training.selenium.model.ProductData;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Created by irinagavrilova on 2/28/17.
@@ -17,8 +18,8 @@ public class ProductCreationTests extends TestBase {
   @Test
   public void testProductCreation() {
     app.goTo().openCatalogMenu();
-    int before = app.productPage().productCount();
-    ArrayList<String> hrefBefore = app.productPage().links();
+    int before = app.productPage().id().size();
+    HashSet<String> hrefBefore = app.productPage().links();
 
     app.productPage().initAddNewProduct();
     String name = "Big Zello duck";
@@ -35,13 +36,10 @@ public class ProductCreationTests extends TestBase {
             .withCampaingnsPercentage("15"));
 
     app.goTo().openCatalogMenu();
-    int after = app.productPage().productCount();
-    Assert.assertEquals((after - before > 0), true);
-    ArrayList<String> hrefAfter = app.productPage().links();
+    int after = app.productPage().id().size();
+    assertEquals(after, (before + 1));
+    HashSet<String> hrefAfter = app.productPage().links();
     hrefAfter.removeAll(hrefBefore);
-    hrefAfter.get(0); //product has two links in raw in Catalog: name and Edit pen button
-    app.productPage().accordance(hrefAfter.get(0), name, generalCode);
-
+    app.productPage().accordance(hrefAfter.iterator().next(), name, generalCode);
   }
-
 }

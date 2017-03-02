@@ -18,19 +18,20 @@ public class ApplicationManager {
   private ProductHelper productHelper;
   private CountriesHelper countriesHelper;
   private RegisterHelper registerHelper;
+  private CartHelper cartHelper;
 
-  public ApplicationManager() {
-  }
+
 
   public void init() {
     driver = new ChromeDriver();
-    driver.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+    driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     productHelper = new ProductHelper(driver);
     navigationHelper = new NavigationHelper(driver);
     sessionHelper = new SessionHelper(driver);
     categoryHelper = new CategoryHelper(driver);
     countriesHelper = new CountriesHelper(driver);
     registerHelper = new RegisterHelper(driver);
+    cartHelper = new CartHelper(driver);
     sessionHelper.login("admin", "admin");
   }
 
@@ -43,8 +44,7 @@ public class ApplicationManager {
     return productHelper;
   }
 
-  public NavigationHelper goTo() {
-    return navigationHelper;
+  public NavigationHelper goTo() {return navigationHelper;
   }
 
   public CategoryHelper categoryPage() {
@@ -54,4 +54,6 @@ public class ApplicationManager {
   public CountriesHelper countriesPage() {return countriesHelper;}
 
   public RegisterHelper registerPage() {return registerHelper;}
+
+  public CartHelper cart() { return cartHelper;}
 }

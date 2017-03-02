@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.training.selenium.model.ProductData;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -101,9 +101,18 @@ public class ProductHelper extends HelperBase {
     return list.size();
   }
 
-  public ArrayList<String> links() {
+  public HashSet<Integer> id() {
+    HashSet<Integer> list = new HashSet<>();
+    for (WebElement element : (driver.findElementsByCssSelector("table.dataTable input")))
+      if (!element.getAttribute("name").contains("categories")) {
+        list.add(Integer.valueOf(element.getAttribute("value")));
+      }
+    return list;
+  }
+
+  public HashSet<String> links() {
     List<WebElement> list = driver.findElementsByCssSelector("table.dataTable a");
-    ArrayList<String> hrefList = new ArrayList<>();
+    HashSet<String> hrefList = new HashSet<>();
     for (WebElement element : list) {
       hrefList.add(element.getAttribute("href"));
     }

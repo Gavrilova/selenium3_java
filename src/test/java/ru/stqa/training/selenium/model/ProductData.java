@@ -21,6 +21,7 @@ public class ProductData {
   private String grossPricesUSD;
   private String priceEUR;
   private String grossPricesEUR;
+  private int id;
 
 
   public ProductData withPhoto(File photo) {
@@ -113,6 +114,11 @@ public class ProductData {
     return this;
   }
 
+  public ProductData withId(int id) {
+    this.id = id;
+    return this;
+  }
+
   public String getGeneralCode() {
     return generalCode;
   }
@@ -183,6 +189,10 @@ public class ProductData {
 
   public String getGrossPricesEUR() {
     return grossPricesEUR;
+  }
+
+  public int getId() {
+    return id;
   }
 
 }

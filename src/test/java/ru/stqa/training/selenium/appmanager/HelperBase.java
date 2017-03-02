@@ -2,9 +2,11 @@ package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by irinagavrilova on 1/28/17.
@@ -48,4 +50,48 @@ public class HelperBase {
       return false;
     }
   }
+ //Store variable of implicit waiting and change it's value from time to time; driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+
+  public boolean isElementPresent(WebDriver driver, By locator) { //проверка наличия (с ожиданием)
+    try {
+      driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+      return driver.findElements(locator).size() > 0;
+    } finally {
+      driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+  }
+  public boolean isElemPresent(WebDriver driver, By locator) {
+    return driver.findElements(locator).size() > 0;
+  }
+
+  public boolean isElementNotPresent(WebDriver driver, By locator) {
+    try {
+      driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+      return driver.findElements(locator).size() == 0;
+    } finally {
+      driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+    }
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
