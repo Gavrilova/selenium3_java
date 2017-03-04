@@ -11,13 +11,13 @@ public class RegisterData {
   private final String city;
   private final String email;
   private final String phone;
-  // private final String country;
-  // private final String state;
+  private final String country;
+  private final String state;
   private final String password;
   private final String confirmedPassword;
 
   public RegisterData(String firstName, String lastName, String address1,
-                      String zipCode, String city, String email, String phone,
+                      String zipCode, String city, String email, String phone, String country, String state,
                       String password, String confirmedPassword) {
     this.firstName = firstName;
     this.lastName = lastName;
@@ -26,17 +26,15 @@ public class RegisterData {
     this.city = city;
     this.email = email;
     this.phone = phone;
-    //  this.country = country;
-    //  this.state = state;
+    this.country = country;
+    this.state = state;
     this.password = password;
     this.confirmedPassword = confirmedPassword;
   }
 
-  // public String getState() {return state;}
+  public String getState() {return state;}
 
-  // public String getCountry() {
-  //   return country;
-  // }
+  public String getCountry() { return country;}
 
   public String getPhone() {
     return phone;
@@ -62,9 +60,7 @@ public class RegisterData {
     return lastName;
   }
 
-  public String getFirstName() {
-    return firstName;
-  }
+  public String getFirstName() {return firstName;}
 
   public String getPassword() {
     return password;
@@ -73,4 +69,5 @@ public class RegisterData {
   public String getConfirmedPassword() {
     return confirmedPassword;
   }
+
 }

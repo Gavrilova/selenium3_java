@@ -32,6 +32,7 @@ public class RegisterHelper extends HelperBase {
     type(By.name("password"), registerData.getPassword());
     type(By.name("confirmed_password"), registerData.getConfirmedPassword());
     click(By.name("create_account"));
+    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("div.notice.success")));
   }
 
   public void fillForm(String name, String email, String pass) {
@@ -66,6 +67,10 @@ public class RegisterHelper extends HelperBase {
   }
 
   public void selectZone(String zone) {
+    //Проблемы с ожижаниями: список зон подгружается динамически после выбора...
+    //нужно добавить ожидание, чтобы успел загрузить список зон (штатов)
+    // if (country.equal("US") || country.equal("CA")) {//надо передавать параметр страны
+    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElements(By.cssSelector("select")).get(1));
     new Select(driver.findElementsByCssSelector("select").get(1)).selectByValue(zone);
   }
 }
