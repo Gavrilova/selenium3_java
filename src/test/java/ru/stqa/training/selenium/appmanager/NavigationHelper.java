@@ -93,7 +93,7 @@ public class NavigationHelper extends HelperBase {
   public void gotoPage(WebElement element) {
     element.click();
   }
-
+  public void gotoCheckout() {driver.get("http://localhost/litecart/en/checkout");}
 
   public void logoutAdminSession() {
 
