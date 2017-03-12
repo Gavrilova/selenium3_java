@@ -11,10 +11,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import static java.lang.Integer.valueOf;
 import static java.util.stream.Collectors.toCollection;
 import static org.junit.Assert.assertTrue;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 import static org.testng.Assert.assertEquals;
 
 /**
@@ -41,9 +43,9 @@ public class CartHelper extends HelperBase {
   }
 
   public void chooseRandom() { //choose randomly the product from the list
-    Random rand = new Random();
+    Random rnd = new Random();
     List<WebElement> products = driver.findElements(By.cssSelector("li.product"));
-    int index = rand.nextInt(products.size());
+    int index = rnd.nextInt(products.size());
     products.get(index).click();
   }
 
@@ -58,7 +60,7 @@ public class CartHelper extends HelperBase {
 //    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.name("td.quantity button")));
     if (isElementPresent(By.cssSelector("select"))) {
       new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElements(By.cssSelector("select option")).get(1));
-      new Select(driver.findElement(By.cssSelector("select"))).selectByValue("Small");
+      new Select(driver.findElement(By.cssSelector("select"))).selectByValue(selectOptions());
     }
     driver.findElement(By.cssSelector("td.quantity button")).click();
     wait.until(ExpectedConditions.textToBe(By.cssSelector("span.quantity"), String.valueOf(cartQuantity + 1)));
@@ -68,13 +70,27 @@ public class CartHelper extends HelperBase {
     return valueOf(driver.findElement(By.cssSelector("span.quantity")).getText());
   }
 
+  private String selectOptions() {
+    Random rnd = new Random();
+    List<String> list = driver.findElements(By.cssSelector("select option"))
+            .stream().map((d) -> d.getAttribute("value"))
+            .collect(Collectors.toList());
+    int index = 1 + rnd.nextInt(list.size() - 1);
+    return list.get(index);
+  }
+
   public void yellowDuck() {
     driver.get("http://localhost/litecart/en/rubber-ducks-c-1/subcategory-c-2/yellow-duck-p-1");
   }
 
   public void checkOut() {
+    int quantity = cartQuantity();
     driver.findElement(By.cssSelector("div#cart a.link")).click();
-    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("table.dataTable")));
+    if (quantity != 0) {
+      new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("table.dataTable")));
+    } else {
+      new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("em")));
+    }
   }
 
   public void emptyCart() {
@@ -85,14 +101,14 @@ public class CartHelper extends HelperBase {
         List<WebElement> elements = driver.findElements(By.cssSelector("li.shortcut a"));
         WebElement elementFirst = elements.get(0);
         elementFirst.click();
-        wait.until(ExpectedConditions.attributeContains(elementFirst, "class", "inact act"));
+        wait.until(attributeContains(elementFirst, "class", "inact act"));
       }
       String stringSKU = getStringSKU();
       driver.findElement(By.name("remove_cart_item")).click();
       if (quantity() > 0) {
-        wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("form img")))); //element is moving, not vanished!
+        wait.until(stalenessOf(driver.findElement(By.cssSelector("form img")))); //element is moving, not vanished!
       } else {
-        isElementPresent(driver, By.cssSelector("em"));
+        wait.until(invisibilityOfElementWithText(By.cssSelector("em"), "There are no items in your cart."));
       }
       assertEquals(before - i - 1, quantity());      //assertion that one element less in the cart
       assertEquals(stringSKU, after(beforeSKU));     //assertion that exact element was deleted
