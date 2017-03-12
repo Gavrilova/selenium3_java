@@ -36,6 +36,9 @@ public class CartTests extends TestBase {
 
   @Test
   public void testGetCartEmpty() throws InterruptedException {
+    app.goTo().gotoCustomersHomePage();
+    app.cart().chooseRandom();
+    app.cart().addToCart();
     app.cart().checkOut();
     app.cart().emptyCart();
   }

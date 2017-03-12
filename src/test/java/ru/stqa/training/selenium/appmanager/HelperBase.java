@@ -62,6 +62,7 @@ public class HelperBase {
     }
   }
   public boolean isElemPresent(WebDriver driver, By locator) {
+
     return driver.findElements(locator).size() > 0;
   }
 
