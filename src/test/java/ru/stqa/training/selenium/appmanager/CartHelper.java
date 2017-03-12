@@ -1,6 +1,5 @@
 package ru.stqa.training.selenium.appmanager;
 
-import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,6 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 import static java.lang.Integer.valueOf;
+import static java.util.stream.Collectors.toCollection;
 import static org.junit.Assert.assertTrue;
 import static org.testng.Assert.assertEquals;
 
@@ -87,7 +87,7 @@ public class CartHelper extends HelperBase {
 
     for (int i = 0; i < before; i++) {
       HashSet<String> beforeSKU = getSKUSet();
-      if (driver.findElements(By.cssSelector("li.shortcut")).size() !=0) {
+      if (driver.findElements(By.cssSelector("li.shortcut")).size() != 0) {
         List<WebElement> elements = driver.findElements(By.cssSelector("li.shortcut a"));
         WebElement elementFirst = elements.get(0);
         elementFirst.click();
@@ -102,34 +102,32 @@ public class CartHelper extends HelperBase {
       }
 
       assertEquals(before - i - 1, quantity()); //assertion that one element less in the cart
-      //assertion that exactly element was deleted
-      HashSet<String> afterSKU = getSKUSet();
-      System.out.println("before: " + beforeSKU);
-      System.out.println("after: " + afterSKU);
-      beforeSKU.removeAll(afterSKU);
-      System.out.println(beforeSKU.iterator().next());
-      assertEquals(text, beforeSKU.iterator().next());
+      assertEquals(text, after(beforeSKU)); //assertion that exactl element was deleted
     }
     new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("em")));
     assertTrue(isElementPresent(By.cssSelector("em")));
   }
 
+  private String after(HashSet<String> beforeSKU) {
+    HashSet<String> afterSKU = getSKUSet();
+    System.out.println("before: " + beforeSKU);
+    System.out.println("after: " + afterSKU);
+    beforeSKU.removeAll(afterSKU);
+    System.out.println(beforeSKU.iterator().next());
+    return beforeSKU.iterator().next();
+  }
+
   private String getStringSKU() {
     String stringSku = driver.findElements(By.cssSelector("div p span")).get(0).getText();
     System.out.println(stringSku);
-    String text = stringSku.replace("[SKU: ", "").replace("]","");
+    String text = stringSku.replace("[SKU: ", "").replace("]", "");
     System.out.println(text);
     return text;
   }
 
-
   private HashSet<String> getSKUSet() {
-    List<WebElement> sku = driver.findElements(By.cssSelector("td.sku"));
-    HashSet<String> skuSet = new HashSet<String>();
-    for (WebElement sk: sku) {
-      skuSet.add(sk.getText());
-    }
-    return skuSet;
+    return driver.findElements(By.cssSelector("td.sku")).stream()
+            .map(WebElement::getText).collect(toCollection(HashSet<String>::new));
   }
 
   private int quantity() {
