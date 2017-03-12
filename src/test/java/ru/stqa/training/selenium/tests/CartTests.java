@@ -1,6 +1,5 @@
 package ru.stqa.training.selenium.tests;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 /**
@@ -9,7 +8,7 @@ import org.testng.annotations.Test;
 public class CartTests extends TestBase {
 
   @Test
-  public void testCart1() throws InterruptedException {
+  public void testCart() throws InterruptedException {
     for (int i = 0; i < 3; i++) {
       app.goTo().gotoCustomersHomePage();
       app.cart().getFirstOne();
@@ -18,29 +17,4 @@ public class CartTests extends TestBase {
     app.cart().checkOut();
     app.cart().emptyCart();
   }
-
-  @Test
-  public void testCart2() throws InterruptedException {
-    app.goTo().gotoPage(By.cssSelector("i.fa-chevron-circle-left"));
-    app.cart().yellowDuck();
-    app.cart().addToCart();
-  }
-
-  @Test
-  public void testCart3() throws InterruptedException {
-    app.goTo().gotoPage(By.cssSelector("i.fa-chevron-circle-left"));
-    app.cart().chooseRandom();
-    app.cart().addToCart();
-
-  }
-
-  @Test
-  public void testGetCartEmpty() throws InterruptedException {
-    app.goTo().gotoCustomersHomePage();
-    app.cart().chooseRandom();
-    app.cart().addToCart();
-    app.cart().checkOut();
-    app.cart().emptyCart();
-  }
-
 }

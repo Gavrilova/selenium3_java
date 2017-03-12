@@ -58,9 +58,6 @@ public class CartHelper extends HelperBase {
 //    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.name("td.quantity button")));
     if (isElementPresent(By.cssSelector("select"))) {
       new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElements(By.cssSelector("select option")).get(1));
-      for (WebElement element : driver.findElements(By.cssSelector("select option"))) {
-        System.out.println(element.getText());
-      }
       new Select(driver.findElement(By.cssSelector("select"))).selectByValue("Small");
     }
     driver.findElement(By.cssSelector("td.quantity button")).click();
@@ -81,10 +78,7 @@ public class CartHelper extends HelperBase {
   }
 
   public void emptyCart() {
-
     int before = quantity();
-    System.out.println(before);
-
     for (int i = 0; i < before; i++) {
       HashSet<String> beforeSKU = getSKUSet();
       if (driver.findElements(By.cssSelector("li.shortcut")).size() != 0) {
@@ -93,16 +87,15 @@ public class CartHelper extends HelperBase {
         elementFirst.click();
         wait.until(ExpectedConditions.attributeContains(elementFirst, "class", "inact act"));
       }
-      String text = getStringSKU();
+      String stringSKU = getStringSKU();
       driver.findElement(By.name("remove_cart_item")).click();
       if (quantity() > 0) {
         wait.until(ExpectedConditions.stalenessOf(driver.findElement(By.cssSelector("form img")))); //element is moving, not vanished!
       } else {
         isElementPresent(driver, By.cssSelector("em"));
       }
-
-      assertEquals(before - i - 1, quantity()); //assertion that one element less in the cart
-      assertEquals(text, after(beforeSKU)); //assertion that exactl element was deleted
+      assertEquals(before - i - 1, quantity());      //assertion that one element less in the cart
+      assertEquals(stringSKU, after(beforeSKU));     //assertion that exact element was deleted
     }
     new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("em")));
     assertTrue(isElementPresent(By.cssSelector("em")));
@@ -110,19 +103,13 @@ public class CartHelper extends HelperBase {
 
   private String after(HashSet<String> beforeSKU) {
     HashSet<String> afterSKU = getSKUSet();
-    System.out.println("before: " + beforeSKU);
-    System.out.println("after: " + afterSKU);
     beforeSKU.removeAll(afterSKU);
-    System.out.println(beforeSKU.iterator().next());
     return beforeSKU.iterator().next();
   }
 
   private String getStringSKU() {
     String stringSku = driver.findElements(By.cssSelector("div p span")).get(0).getText();
-    System.out.println(stringSku);
-    String text = stringSku.replace("[SKU: ", "").replace("]", "");
-    System.out.println(text);
-    return text;
+    return stringSku.replace("[SKU: ", "").replace("]", "");
   }
 
   private HashSet<String> getSKUSet() {
