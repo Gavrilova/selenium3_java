@@ -33,10 +33,10 @@ public class CartHelper extends HelperBase {
 
 
   public void firstPopular() {//find first product in Popular group
-    // new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.name("h3.title")));
+    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("h3.title")));
     String productName = driver.findElement(By.cssSelector("div.name")).getText();
     driver.findElement(By.cssSelector("div#box-most-popular.box li")).click();
-    // new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.name("h1.title")));
+    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("h1.title")));
     String productPageName = driver.findElement(By.cssSelector("h1.title")).getText();
     assertEquals(productName, productPageName);
     System.out.println(productName);
@@ -51,13 +51,17 @@ public class CartHelper extends HelperBase {
 
   public void getFirstOne() { //choose first product from the list in the main page
     List<WebElement> products = driver.findElements(By.cssSelector("li.product"));
+    String productName = products.get(0).findElement(By.cssSelector("div.name")).getText();
     products.get(0).click();
+    wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("h1.title"))));
+    String productPageName = driver.findElement(By.cssSelector("h1.title")).getText();
+    assertEquals(productName, productPageName);
   }
 
 
   public void addToCart() throws InterruptedException {
     int cartQuantity = cartQuantity();
-//    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.name("td.quantity button")));
+    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("td.quantity button")));
     if (isElementPresent(By.cssSelector("select"))) {
       new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElements(By.cssSelector("select option")).get(1));
       new Select(driver.findElement(By.cssSelector("select"))).selectByValue(selectOptions());
@@ -108,7 +112,7 @@ public class CartHelper extends HelperBase {
       if (quantity() > 0) {
         wait.until(stalenessOf(driver.findElement(By.cssSelector("form img")))); //element is moving, not vanished!
       } else {
-        wait.until(invisibilityOfElementWithText(By.cssSelector("em"), "There are no items in your cart."));
+        wait.until(visibilityOf(driver.findElement(By.cssSelector("em"))));
       }
       assertEquals(before - i - 1, quantity());      //assertion that one element less in the cart
       assertEquals(stringSKU, after(beforeSKU));     //assertion that exact element was deleted
