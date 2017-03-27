@@ -20,6 +20,7 @@ public class ApplicationManager {
   private CountriesHelper countriesHelper;
   private RegisterHelper registerHelper;
   private CartHelper cartHelper;
+  private CountriesEditHelper countriesEditHelper;
 
 
 
@@ -33,6 +34,7 @@ public class ApplicationManager {
     countriesHelper = new CountriesHelper(driver);
     registerHelper = new RegisterHelper(driver);
     cartHelper = new CartHelper(driver);
+    countriesEditHelper = new CountriesEditHelper(driver);
     sessionHelper.login("admin", "admin");
   }
 
@@ -57,4 +59,6 @@ public class ApplicationManager {
   public RegisterHelper registerPage() {return registerHelper;}
 
   public CartHelper cart() { return cartHelper;}
+
+  public CountriesEditHelper edit() {return countriesEditHelper;}
 }

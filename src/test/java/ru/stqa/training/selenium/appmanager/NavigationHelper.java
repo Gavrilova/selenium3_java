@@ -4,9 +4,10 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.ArrayList;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 /**
  * Created by irinagavrilova on 1/28/17.
@@ -16,6 +17,8 @@ public class NavigationHelper extends HelperBase {
   public NavigationHelper(ChromeDriver driver) {
     super(driver);
   }
+
+  public WebDriverWait wait = new WebDriverWait(driver, 10);
 
   protected void openNewSubMenu() {
     openCatalogMenu();
@@ -76,24 +79,37 @@ public class NavigationHelper extends HelperBase {
 
     click(By.linkText("Manufacturers"));
   }
+
   public void gotoHomePage() {
 
     click(By.cssSelector("i.fa-home"));
   }
 
-  public void gotoCustomersHomePage(){
+  public void gotoCustomersHomePage() {
     driver.get("http://localhost/litecart/en/");
+    wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("li.product")));
   }
-  public void gotoRegisterPage(){
+
+  public void gotoCountriesPages() {
+    driver.get("http://localhost/litecart/admin/?app=countries&doc=countries");
+    wait.until(visibilityOf(driver.findElement(By.cssSelector("table.dataTable"))));
+  }
+
+  public void gotoRegisterPage() {
     driver.get("http://localhost/litecart/en/create_account");
   }
+
   public void gotoPage(By locator) {
-   click(locator);
- }
+    click(locator);
+  }
+
   public void gotoPage(WebElement element) {
     element.click();
   }
-  public void gotoCheckout() {driver.get("http://localhost/litecart/en/checkout");}
+
+  public void gotoCheckout() {
+    driver.get("http://localhost/litecart/en/checkout");
+  }
 
   public void logoutAdminSession() {
 
