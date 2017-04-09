@@ -13,11 +13,12 @@ public class AdminEditCountriesTests extends TestBase {
   public void testAdminEditCountries() {
     app.goTo().gotoCountriesPages();
     app.edit().addNewCountries();
-    ArrayList<String> list = app.edit().test();
+
+    ArrayList<String> list = app.edit().links();
+  //  app.edit().print();
     app.edit().assertTargetBlank();
     for (int i = 0; i < list.size(); i++) {
       app.edit().handleWindow(i);
-      System.out.println(list.get(i));
     }
   }
 }
