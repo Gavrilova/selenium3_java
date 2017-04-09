@@ -74,27 +74,15 @@ public class CountriesEditHelper extends HelperBase {
         wait.until(visibilityOfAllElementsLocatedBy(By.cssSelector("h1")));
       } else {
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("div.marketo-formContent h1"))));
-        //String st = "div#mbox-target-global-mbox-1491740222617-708477.mboxDefault";
         String st = " input.no-margin-bottom";
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(st))));
         WebElement element1 = driver.findElement(By.cssSelector("h1"));
         Assert.assertTrue(element1.getText().equals("Sign up for free demo"));
       }
-
-
-      // получаем идентификатор ведущего окна
-      //link.click(); // открывает новое окно
-      // ожидание появления нового окна,
-// идентификатор которого отсутствует в списке oldWindows,
-// остаётся в качестве самостоятельного упражнения
-      // String newWindow = wait.until(thereIsWindowOtherThan(oldWindows));
-      // driver.switchTo().window(newWindow);
-// ...
       driver.close();
       driver.switchTo().window(mainWindow);
     }
   }
-
 
   public ExpectedCondition<String> anyWindowOtherThan(Set<String> oldWindows) {
     return new ExpectedCondition<String>() {
@@ -105,35 +93,4 @@ public class CountriesEditHelper extends HelperBase {
       }
     };
   }
-
-  /*
-  public void closeWindow(URL url) {
-    String newWindow = wait.until(thereIsWindowOtherThan(oldWindows));
-    driver.switchTo().window(newWindow);
-    driver.close();
-    driver.switchTo().window(mainWindow);
-  }
-
-  public void handleWindow
-
-  {
-    getWindowHandle
-    метод anyWindowOtherThan который идет в параметр wait.until ?
-//запоминаем идентификатор текущего окна
-          originalWindow = driver.getWindowHandle();
-//запоминаем идентификаторы уже открытых окон
-    existingWindows = driver.getWindowHandles();
-//кликаем кнопку, которая открывает новое окно
-    driver.findElement(By.id("button")).click;
-//ждем появления нового окна с новым идентификатором
-    newWindow = wait.until(anyWindowOtherThan(existingWindows))
-//переключаемся в новое окно
-    driver.switchTo().window(newWindow);
-//закрываем его
-    driver.close();
-//возвращаемся в исходное окно
-    driver.switchTo().window(originalWindow);
-  }
-  */
-
 }
