@@ -6,13 +6,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static org.junit.Assert.assertTrue;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllElementsLocatedBy;
 
 /**
@@ -23,7 +25,7 @@ public class CountriesEditHelper extends HelperBase {
     super(driver);
   }
 
-  WebDriverWait wait = new WebDriverWait(driver, 50);
+  WebDriverWait wait = new WebDriverWait(driver, 10);
 
   public ArrayList<String> test() {
     ArrayList<String> list = links();
@@ -37,50 +39,53 @@ public class CountriesEditHelper extends HelperBase {
   }
 
   public ArrayList<String> links() {
-    return driver.findElementsByCssSelector("form td a").stream()
+    List<WebElement> web = driver.findElementsByCssSelector("form td a");
+    //  ArrayList<WebElement> temp = web;
+    //  for (WebElement wb: temp) {
+    //    if (wb.getText().equals("?")) {web.remove(wb);}
+    //  }
+    return web.stream()
             .map((d) -> d.getAttribute("href")).collect(Collectors.toCollection(ArrayList<String>::new));
-
   }
 
   public void handleWindow(int i) {
-    System.out.println("i =" + i + driver.findElements(By.cssSelector("form td a")).get(i).getText());
-    if (driver.findElements(By.cssSelector("form td a")).get(i).getText().equals("?")) {
+
+    WebElement elements = driver.findElements(By.cssSelector("form td a")).get(i);
+    if (elements.getText().equals("?")) {
     } else {
       String mainWindow = driver.getWindowHandle();
       Set<String> oldWindows = driver.getWindowHandles();
-      System.out.println("old");
-      for (String handle : oldWindows) {
-        System.out.println(handle);
-      }
+      ArrayList<String> list = test();
+      elements.click();   //открываем новое окно
 
-      driver.findElements(By.cssSelector("form td a")).get(i).click();
-
-      //driver.get(link); //открываем новое окно
-      Set<String> newWindows = driver.getWindowHandles(); //смотрим список идентификаторов окон
-      //driver.getWindowHandle(); //идентификатор текущего окна
-      System.out.println("new");
-      for (String handle : newWindows) {
-        System.out.println(handle);
-      }
+      Set<String> newWindows = driver.getWindowHandles();  //смотрим список идентификаторов окон
       newWindows.removeAll(oldWindows);
-      System.out.println("After removingAll");
-      for (String handle : newWindows) {
-        System.out.println(handle);
-      }
       String handle0 = newWindows.iterator().next();
       driver.switchTo().window(handle0);
 
+      System.out.println("CurrentURL = " + driver.getCurrentUrl());
+      System.out.println("links." + i + ". = " + list.get(i));
+      System.out.println((driver.getCurrentUrl().equals(list.get(i)))); //убеждаемся, что открыли нужное окно
       if (i != 4) {
         wait.until(visibilityOfAllElementsLocatedBy(By.cssSelector("h1")));
       } else {
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("div.marketo-formContent h1"))));
-        String st = " input.no-margin-bottom";
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(st))));
+        wait.until(visibilityOf(driver.findElement(By.cssSelector("div.marketo-formContent h1"))));
+        wait.until(visibilityOf(driver.findElement(By.cssSelector("input.no-margin-bottom"))));
         WebElement element1 = driver.findElement(By.cssSelector("h1"));
-        Assert.assertTrue(element1.getText().equals("Sign up for free demo"));
+        assertTrue(element1.getText().equals("Sign up for free demo"));
       }
+
       driver.close();
       driver.switchTo().window(mainWindow);
+    }
+  }
+
+  public void assertTargetBlank() {// убедиться в том, что у ссылки есть атрибут target="_blank"
+    for (WebElement webElement : driver.findElements(By.cssSelector("form td a"))) {
+      if (webElement.getText().equals("?")) {
+      } else {
+        Assert.assertTrue(webElement.getAttribute("target").equals("_blank"));
+      }
     }
   }
 

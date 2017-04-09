@@ -14,6 +14,7 @@ public class AdminEditCountriesTests extends TestBase {
     app.goTo().gotoCountriesPages();
     app.edit().addNewCountries();
     ArrayList<String> list = app.edit().test();
+    app.edit().assertTargetBlank();
     for (int i = 0; i < list.size(); i++) {
       app.edit().handleWindow(i);
       System.out.println(list.get(i));
