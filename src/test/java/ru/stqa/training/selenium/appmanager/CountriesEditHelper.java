@@ -1,10 +1,12 @@
 package ru.stqa.training.selenium.appmanager;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class CountriesEditHelper extends HelperBase {
     super(driver);
   }
 
-  WebDriverWait wait = new WebDriverWait(driver, 10);
+  WebDriverWait wait = new WebDriverWait(driver, 50);
 
   public ArrayList<String> test() {
     ArrayList<String> list = links();
@@ -40,41 +42,59 @@ public class CountriesEditHelper extends HelperBase {
 
   }
 
-  public void handleWindow(String link) {
-    String mainWindow = driver.getWindowHandle();
-    Set<String> oldWindows = driver.getWindowHandles();
-    System.out.println("old");
-    for (String handle : oldWindows) {
-      System.out.println(handle);
-    }
-    driver.findElement(By.cssSelector("form td a")).click();
-    //driver.get(link); //открываем новое окно
-    Set<String> newWindows = driver.getWindowHandles(); //смотрим список идентификаторов окон
-    //driver.getWindowHandle(); //идентификатор текущего окна
-    System.out.println("new");
-    for (String handle : newWindows) {
-      System.out.println(handle);
-    }
-    newWindows.removeAll(oldWindows);
-    System.out.println("After removingAll");
-    for (String handle : newWindows) {
-      System.out.println(handle);
-    }
-    String handle0 = newWindows.iterator().next();
-    driver.switchTo().window(handle0);
-    wait.until(visibilityOfAllElementsLocatedBy(By.cssSelector("h1")));
+  public void handleWindow(int i) {
+    System.out.println("i =" + i + driver.findElements(By.cssSelector("form td a")).get(i).getText());
+    if (driver.findElements(By.cssSelector("form td a")).get(i).getText().equals("?")) {
+    } else {
+      String mainWindow = driver.getWindowHandle();
+      Set<String> oldWindows = driver.getWindowHandles();
+      System.out.println("old");
+      for (String handle : oldWindows) {
+        System.out.println(handle);
+      }
 
-    // получаем идентификатор ведущего окна
-    //link.click(); // открывает новое окно
-    // ожидание появления нового окна,
+      driver.findElements(By.cssSelector("form td a")).get(i).click();
+
+      //driver.get(link); //открываем новое окно
+      Set<String> newWindows = driver.getWindowHandles(); //смотрим список идентификаторов окон
+      //driver.getWindowHandle(); //идентификатор текущего окна
+      System.out.println("new");
+      for (String handle : newWindows) {
+        System.out.println(handle);
+      }
+      newWindows.removeAll(oldWindows);
+      System.out.println("After removingAll");
+      for (String handle : newWindows) {
+        System.out.println(handle);
+      }
+      String handle0 = newWindows.iterator().next();
+      driver.switchTo().window(handle0);
+
+      if (i != 4) {
+        wait.until(visibilityOfAllElementsLocatedBy(By.cssSelector("h1")));
+      } else {
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector("div.marketo-formContent h1"))));
+        //String st = "div#mbox-target-global-mbox-1491740222617-708477.mboxDefault";
+        String st = " input.no-margin-bottom";
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.cssSelector(st))));
+        WebElement element1 = driver.findElement(By.cssSelector("h1"));
+        Assert.assertTrue(element1.getText().equals("Sign up for free demo"));
+      }
+
+
+      // получаем идентификатор ведущего окна
+      //link.click(); // открывает новое окно
+      // ожидание появления нового окна,
 // идентификатор которого отсутствует в списке oldWindows,
 // остаётся в качестве самостоятельного упражнения
-    // String newWindow = wait.until(thereIsWindowOtherThan(oldWindows));
-    // driver.switchTo().window(newWindow);
+      // String newWindow = wait.until(thereIsWindowOtherThan(oldWindows));
+      // driver.switchTo().window(newWindow);
 // ...
-    driver.close();
-    driver.switchTo().window(mainWindow);
+      driver.close();
+      driver.switchTo().window(mainWindow);
+    }
   }
+
 
   public ExpectedCondition<String> anyWindowOtherThan(Set<String> oldWindows) {
     return new ExpectedCondition<String>() {

@@ -14,6 +14,23 @@ public class AdminEditCountriesTests extends TestBase {
     app.goTo().gotoCountriesPages();
     app.edit().addNewCountries();
     ArrayList<String> list = app.edit().test();
-    app.edit().handleWindow(list.get(0));
+    for (int i=0; i<list.size(); i++) {
+      app.edit().handleWindow(i);
+      System.out.println(list.get(i));
+    }
+   /*
+    app.edit().handleWindow(1);
+    System.out.println(list.get(1));
+    app.edit().handleWindow(2);
+    System.out.println(list.get(2));
+    app.edit().handleWindow(4);
+    System.out.println(list.get(4));
+    app.edit().handleWindow(5);
+    System.out.println(list.get(5));
+    app.edit().handleWindow(6);
+    System.out.println(list.get(6));
+    app.edit().handleWindow(7);
+    System.out.println(list.get(7));
+    */
   }
 }
