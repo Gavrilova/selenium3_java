@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.training.selenium.model.ProductData;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -113,13 +112,16 @@ public class ProductHelper extends HelperBase {
   }
 
   public ArrayList<String> folderUrl() {
-    ArrayList<String> list = driver.findElements(By.cssSelector("table.dataTable tr.row a")).stream()
+    //the last one in the array will be unopened nested subfolder. No need to sort it;
+    return driver.findElements(By.cssSelector("table.dataTable tr.row a")).stream()
             .map((d) -> d.getAttribute("href"))
             .filter((f) -> !f.contains("product_id"))
             .filter((f) -> !f.contains("edit"))
             .collect(toCollection(ArrayList<String>::new));
-    Collections.sort(list);
-    return list;
+  }
+
+  public boolean unOpenedFolder() {
+    return isElementPresent(driver, By.cssSelector("i.fa-folder"));
   }
 
   public void printList(ArrayList<String> list) {

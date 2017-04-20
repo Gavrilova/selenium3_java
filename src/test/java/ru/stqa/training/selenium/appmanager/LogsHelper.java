@@ -37,12 +37,7 @@ public class LogsHelper extends HelperBase {
   }
 
   public void getLogs() {
-    System.out.println(driver.manage().logs().getAvailableLogTypes());
-    driver.manage().logs().get("browser").forEach(System.out::println);
-    driver.manage().logs().get("performance").forEach(System.out::println);
-    driver.manage().logs().get("client").forEach(System.out::println);
-    driver.manage().logs().get("driver").forEach(System.out::println);
+    driver.manage().logs().getAvailableLogTypes()
+            .forEach((d) -> driver.manage().logs().get(d).forEach(System.out::println));
   }
-
-
 }
