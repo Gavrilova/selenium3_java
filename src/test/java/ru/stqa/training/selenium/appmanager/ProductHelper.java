@@ -8,9 +8,13 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.training.selenium.model.ProductData;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import static java.util.stream.Collectors.toCollection;
 
 /**
  * Created by irinagavrilova on 1/28/17.
@@ -98,6 +102,35 @@ public class ProductHelper extends HelperBase {
   public int productCount() {
     List<WebElement> list = driver.findElements(By.cssSelector("table.dataTable img"));
     return list.size();
+  }
+
+  public ArrayList<String> productsUrl() {
+      List<WebElement> web = driver.findElements(By.cssSelector("table.dataTable tr.row a"));
+      HashSet<String> hashSet =  web.stream()
+                 .map((d) -> d.getAttribute("href"))
+               .filter((f) -> f.contains("product_id"))
+               .collect(toCollection(HashSet<String>::new));
+    ArrayList<String> list = new ArrayList<String>();
+    list.addAll(hashSet);
+    return list;
+  }
+
+  public ArrayList<String> folderUrl() {
+    List<WebElement> web = driver.findElements(By.cssSelector("table.dataTable tr.row a"));
+    HashSet<String> hashSet = web.stream()
+            .map((d) -> d.getAttribute("href"))
+            .filter((f) -> !f.contains("product_id"))
+            .filter((f) -> !f.contains("edit"))
+            .collect(toCollection(HashSet<String>::new));
+
+    ArrayList<String> list = new ArrayList<String>();
+    list.addAll(hashSet);
+    Collections.sort(list);
+    return list;
+  }
+
+  public void printList(ArrayList<String> list) {
+    list.forEach(System.out::println);
   }
 
   public HashSet<Integer> id() {
