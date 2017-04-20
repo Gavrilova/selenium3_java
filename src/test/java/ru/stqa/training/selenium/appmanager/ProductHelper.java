@@ -105,26 +105,19 @@ public class ProductHelper extends HelperBase {
   }
 
   public ArrayList<String> productsUrl() {
-      List<WebElement> web = driver.findElements(By.cssSelector("table.dataTable tr.row a"));
-      HashSet<String> hashSet =  web.stream()
-                 .map((d) -> d.getAttribute("href"))
-               .filter((f) -> f.contains("product_id"))
-               .collect(toCollection(HashSet<String>::new));
-    ArrayList<String> list = new ArrayList<String>();
-    list.addAll(hashSet);
-    return list;
+    return driver.findElements(By.cssSelector("table.dataTable tr.row a"))
+            .stream()
+            .map((d) -> d.getAttribute("href"))
+            .filter((f) -> f.contains("product_id"))
+            .collect(toCollection(ArrayList<String>::new));
   }
 
   public ArrayList<String> folderUrl() {
-    List<WebElement> web = driver.findElements(By.cssSelector("table.dataTable tr.row a"));
-    HashSet<String> hashSet = web.stream()
+    ArrayList<String> list = driver.findElements(By.cssSelector("table.dataTable tr.row a")).stream()
             .map((d) -> d.getAttribute("href"))
             .filter((f) -> !f.contains("product_id"))
             .filter((f) -> !f.contains("edit"))
-            .collect(toCollection(HashSet<String>::new));
-
-    ArrayList<String> list = new ArrayList<String>();
-    list.addAll(hashSet);
+            .collect(toCollection(ArrayList<String>::new));
     Collections.sort(list);
     return list;
   }

@@ -13,19 +13,12 @@ public class CataLogsTests extends TestBase {
   public void testCatalogLogs() {
     app.goTo().gotoCategoryPage();
     ArrayList<String> folderSet = app.productPage().folderUrl();
-    app.productPage().printList(folderSet);
-    app.goTo().gotoPage(folderSet.get(folderSet.size() - 1)); //if we have subfolder, we will click on most recent subfolder.
+    app.goTo().gotoPage(folderSet.get(folderSet.size() - 1), "td h1"); //if we have subfolder, we will click on most recent subfolder.
     app.logsHelper().getLogs();
-
-
-    ArrayList<String> productSet = app.productPage().productsUrl();
-    app.productPage().printList(productSet);
-    productSet.forEach((d) ->
+    app.productPage().productsUrl().forEach((d) ->
     {
-      app.goTo().gotoPage(d);
+      app.goTo().gotoPage(d, "td form");
       app.logsHelper().getLogs();
     });
   }
-
-
 }

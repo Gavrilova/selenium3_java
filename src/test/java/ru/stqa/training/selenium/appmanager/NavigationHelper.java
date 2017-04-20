@@ -108,8 +108,9 @@ public class NavigationHelper extends HelperBase {
     click(locator);
   }
 
-  public void gotoPage(String st) {
-    driver.navigate().to(st);
+  public void gotoPage(String url, String locator) {
+    driver.navigate().to(url);
+    wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(locator)));
   }
 
   public void gotoPage(WebElement element) {
