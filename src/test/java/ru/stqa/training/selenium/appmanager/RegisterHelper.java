@@ -2,6 +2,7 @@ package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.training.selenium.model.RegisterData;
@@ -14,6 +15,7 @@ public class RegisterHelper extends HelperBase {
     super(driver);
   }
 
+  WebDriverWait wait = new WebDriverWait(driver, 10);
 
   public void fillRegisterForm(RegisterData registerData) throws InterruptedException {
     new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.name("firstname"))); //wait till field firstname will be present
@@ -65,10 +67,15 @@ public class RegisterHelper extends HelperBase {
   }
 
   public void selectZone(String zone) {
-    //Проблемы с ожижаниями: список зон подгружается динамически после выбора...
+    //Проблемы с ожиданиями: список зон подгружается динамически после выбора...
     //нужно добавить ожидание, чтобы успел загрузить список зон (штатов)
-    // if (country.equal("US") || country.equal("CA")) {//надо передавать параметр страны
-    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElements(By.cssSelector("select")).get(1));
-    new Select(driver.findElements(By.cssSelector(("select"))).get(1)).selectByValue(zone);
+    //if (country.equal("US") || country.equal("CA")) {//надо передавать параметр страны
+    String country = driver.findElement(By.cssSelector("select.select2-hidden-accessible")).getAttribute("value");
+   // System.out.println(country);
+    if (country.equals("US") || country.equals("CA")) {
+      wait.until(ExpectedConditions.visibilityOf(driver.findElements(By.cssSelector("select")).get(1)));
+      new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElements(By.cssSelector("select")).get(1));
+      new Select(driver.findElements(By.cssSelector(("select"))).get(1)).selectByValue(zone);
+    }
   }
 }
