@@ -103,6 +103,10 @@ public class NavigationHelper extends HelperBase {
     click(locator);
   }
 
+  public void gotoPage(String st) {
+    driver.navigate().to(st);
+  }
+
   public void gotoPage(WebElement element) {
     element.click();
   }
