@@ -1,8 +1,8 @@
 package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfAllE
  * Created by irinagavrilova on 3/14/17.
  */
 public class CountriesEditHelper extends HelperBase {
-  public CountriesEditHelper(ChromeDriver driver) {
+  public CountriesEditHelper(WebDriver driver) {
     super(driver);
   }
 
@@ -31,13 +31,13 @@ public class CountriesEditHelper extends HelperBase {
   }
 
   public ArrayList<String> links() {
-    List<WebElement> web = driver.findElementsByCssSelector("form td a");
+    List<WebElement> web = driver.findElements(By.cssSelector("form td a"));
     return web.stream().filter(webElement -> !webElement.getText().equals("?"))
             .map((d) -> d.getAttribute("href")).collect(toCollection(ArrayList<String>::new));
   }
 
   public List<WebElement> listWebElements() {
-    return driver.findElementsByCssSelector("form td a").stream()
+    return driver.findElements(By.cssSelector("form td a")).stream()
             .filter(webElement -> !webElement.getText().equals("?"))
             .collect(Collectors.toList());
   }

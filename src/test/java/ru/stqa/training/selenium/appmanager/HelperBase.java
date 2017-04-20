@@ -3,7 +3,6 @@ package ru.stqa.training.selenium.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -12,9 +11,9 @@ import java.util.concurrent.TimeUnit;
  * Created by irinagavrilova on 1/28/17.
  */
 public class HelperBase {
-  public ChromeDriver driver;
+  public WebDriver driver;
 
-  public HelperBase(ChromeDriver driver) {
+  public HelperBase(WebDriver driver) {
 
     this.driver = driver;
   }

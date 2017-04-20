@@ -2,7 +2,6 @@ package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -16,7 +15,7 @@ import static org.junit.Assert.assertEquals;
  * Created by irinagavrilova on 2/26/17.
  */
 public class CountriesHelper extends HelperBase {
-  public CountriesHelper(ChromeDriver driver) {
+  public CountriesHelper(WebDriver driver) {
     super(driver);
   }
 

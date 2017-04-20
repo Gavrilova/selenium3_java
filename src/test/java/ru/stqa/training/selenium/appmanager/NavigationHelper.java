@@ -3,7 +3,6 @@ package ru.stqa.training.selenium.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,7 +13,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
  */
 public class NavigationHelper extends HelperBase {
 
-  public NavigationHelper(ChromeDriver driver) {
+  public NavigationHelper(WebDriver driver) {
     super(driver);
   }
 
@@ -47,6 +46,12 @@ public class NavigationHelper extends HelperBase {
 
   public void gotoCatalogPage() {
     click(By.linkText("Catalog"));
+    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("table.dataTable")));
+  }
+
+  public void gotoCategoryPage() {
+    driver.get("http://localhost/litecart/admin/?app=catalog&doc=catalog&category_id=1");
+    wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.cssSelector("table.dataTable")));
   }
 
   public void openCatalogMenu() {
@@ -125,4 +130,5 @@ public class NavigationHelper extends HelperBase {
     new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("div.notice.success")));
 
   }
+
 }

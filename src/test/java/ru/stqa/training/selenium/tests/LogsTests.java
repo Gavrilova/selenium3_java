@@ -1,7 +1,5 @@
 package ru.stqa.training.selenium.tests;
 
-import org.junit.After;
-import org.junit.Before;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -46,7 +44,7 @@ public class LogsTests {
     driver.manage().logs().get("performance").forEach(System.out::println);
   }
 
-  @Test
+  @Test(enabled = false)
   public void myFirstTest() {
     driver.navigate().to("http://www.google.com");
     wait.until((WebDriver d) -> d.findElement(By.name("q"))).sendKeys("webdriver");

@@ -1,17 +1,25 @@
 package ru.stqa.training.selenium.appmanager;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.logging.LogType;
+import org.openqa.selenium.logging.LoggingPreferences;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
 
 /**
  * Created by irinagavrilova on 1/28/17.
  */
 public class ApplicationManager {
 
-
-  ChromeDriver driver;
+  WebDriver driver;
+  WebDriverWait wait;
+  //ChromeDriver driver;
 
   private CategoryHelper categoryHelper;
   private SessionHelper sessionHelper;
@@ -21,11 +29,18 @@ public class ApplicationManager {
   private RegisterHelper registerHelper;
   private CartHelper cartHelper;
   private CountriesEditHelper countriesEditHelper;
-
+  private LogsHelper logsHelper;
 
 
   public void init() {
-    driver = new ChromeDriver();
+
+    DesiredCapabilities cap = DesiredCapabilities.chrome();
+    LoggingPreferences logPrefs = new LoggingPreferences();
+    logPrefs.enable(LogType.PERFORMANCE, Level.ALL);
+    cap.setCapability(CapabilityType.LOGGING_PREFS, logPrefs);
+    driver = new EventFiringWebDriver(new ChromeDriver(cap));
+    wait = new WebDriverWait(driver, 10);
+    //driver = new ChromeDriver();
     driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
     productHelper = new ProductHelper(driver);
     navigationHelper = new NavigationHelper(driver);
@@ -35,6 +50,7 @@ public class ApplicationManager {
     registerHelper = new RegisterHelper(driver);
     cartHelper = new CartHelper(driver);
     countriesEditHelper = new CountriesEditHelper(driver);
+    logsHelper = new LogsHelper(driver);
     sessionHelper.login("admin", "admin");
   }
 
@@ -47,18 +63,31 @@ public class ApplicationManager {
     return productHelper;
   }
 
-  public NavigationHelper goTo() {return navigationHelper;
+  public NavigationHelper goTo() {
+    return navigationHelper;
   }
 
   public CategoryHelper categoryPage() {
     return categoryHelper;
   }
 
-  public CountriesHelper countriesPage() {return countriesHelper;}
+  public CountriesHelper countriesPage() {
+    return countriesHelper;
+  }
 
-  public RegisterHelper registerPage() {return registerHelper;}
+  public RegisterHelper registerPage() {
+    return registerHelper;
+  }
 
-  public CartHelper cart() { return cartHelper;}
+  public CartHelper cart() {
+    return cartHelper;
+  }
 
-  public CountriesEditHelper edit() {return countriesEditHelper;}
+  public CountriesEditHelper edit() {
+    return countriesEditHelper;
+  }
+
+  public LogsHelper logsHelper() {
+    return logsHelper;
+  }
 }

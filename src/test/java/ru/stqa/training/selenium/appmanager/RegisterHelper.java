@@ -2,8 +2,6 @@ package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ru.stqa.training.selenium.model.RegisterData;
@@ -12,7 +10,7 @@ import ru.stqa.training.selenium.model.RegisterData;
  * Created by irinagavrilova on 2/27/17.
  */
 public class RegisterHelper extends HelperBase {
-  public RegisterHelper(ChromeDriver driver) {
+  public RegisterHelper(WebDriver driver) {
     super(driver);
   }
 
@@ -71,6 +69,6 @@ public class RegisterHelper extends HelperBase {
     //нужно добавить ожидание, чтобы успел загрузить список зон (штатов)
     // if (country.equal("US") || country.equal("CA")) {//надо передавать параметр страны
     new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElements(By.cssSelector("select")).get(1));
-    new Select(driver.findElementsByCssSelector("select").get(1)).selectByValue(zone);
+    new Select(driver.findElements(By.cssSelector(("select"))).get(1)).selectByValue(zone);
   }
 }

@@ -1,8 +1,8 @@
 package ru.stqa.training.selenium.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import ru.stqa.training.selenium.model.CategoryData;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class CategoryHelper extends HelperBase {
 
-  public CategoryHelper(ChromeDriver driver) {
+  public CategoryHelper(WebDriver driver) {
     super(driver);
   }
 

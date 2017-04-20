@@ -3,7 +3,6 @@ package ru.stqa.training.selenium.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,7 +17,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ProductHelper extends HelperBase {
 
-  public ProductHelper(ChromeDriver driver) {
+  public ProductHelper(WebDriver driver) {
     super(driver);
   }
 
@@ -97,13 +96,13 @@ public class ProductHelper extends HelperBase {
   }
 
   public int productCount() {
-    List<WebElement> list = driver.findElementsByCssSelector("table.dataTable img");
+    List<WebElement> list = driver.findElements(By.cssSelector("table.dataTable img"));
     return list.size();
   }
 
   public HashSet<Integer> id() {
     HashSet<Integer> list = new HashSet<>();
-    for (WebElement element : (driver.findElementsByCssSelector("table.dataTable input")))
+    for (WebElement element : (driver.findElements(By.cssSelector("table.dataTable input"))))
       if (!element.getAttribute("name").contains("categories")) {
         list.add(Integer.valueOf(element.getAttribute("value")));
       }
@@ -111,7 +110,7 @@ public class ProductHelper extends HelperBase {
   }
 
   public HashSet<String> links() {
-    List<WebElement> list = driver.findElementsByCssSelector("table.dataTable a");
+    List<WebElement> list = driver.findElements(By.cssSelector("table.dataTable a"));
     HashSet<String> hrefList = new HashSet<>();
     for (WebElement element : list) {
       hrefList.add(element.getAttribute("href"));
