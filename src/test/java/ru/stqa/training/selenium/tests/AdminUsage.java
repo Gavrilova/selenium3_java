@@ -20,14 +20,14 @@ public class AdminUsage extends TestBase {
     app.categoryPage().initAddNewCategory();
     app.categoryPage().fillCategoryForm(new CategoryData("Big Ducks"));
     app.goTo().choosingProductFromCategories();
-    app.productPage().submitProductDuplicate();
-    app.productPage().initEditProduct();
-    app.productPage().fillProductForm(
+    app.product().submitProductDuplicate();
+    app.product().initEditProduct();
+    app.product().fillProductForm(
             new ProductData().withGeneralCode("RD009").withSKU("RD009")
             .withPriceUSD("10.0000").withCampaingnsPercentage("10").withNameEng("Big Green Duck")
             .withShortDescriptionEng("Best big green duck ever").withQuantity("\\undefined"));
     app.goTo().choosingProductInCategories();
-    app.productPage().submitProductDeleting();
+    app.product().submitProductDeleting();
     app.goTo().choosingCategoryToEdit();
     app.categoryPage().submitCategoryDeleting();
     app.goTo().logoutAdminSession();

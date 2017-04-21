@@ -18,14 +18,14 @@ public class ProductCreationTests extends TestBase {
   @Test
   public void testProductCreation() {
     app.goTo().openCatalogMenu();
-    int before = app.productPage().id().size();
-    HashSet<String> hrefBefore = app.productPage().links();
+    int before = app.product().id().size();
+    HashSet<String> hrefBefore = app.product().links();
 
-    app.productPage().initAddNewProduct();
+    app.product().initAddNewProduct();
     String name = "Big Zello duck";
     String generalCode = "rd" + (new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date())).replace(".", "");  //should be unique to each product!
     File photo = new File("src/test/resources/Zello.png");
-    app.productPage().fillThreeTabs(new ProductData().withNameEng(name)
+    app.product().fillThreeTabs(new ProductData().withNameEng(name)
             .withGeneralCode(generalCode).withQuantity("23").withPhoto(photo)
             .withDataValidFrom("02012017").withDataValidTo("02042018")
             .withKeywords("keywordsZello").withShortDescriptionEng("short description")
@@ -36,10 +36,10 @@ public class ProductCreationTests extends TestBase {
             .withCampaingnsPercentage("15"));
 
     app.goTo().openCatalogMenu();
-    int after = app.productPage().id().size();
+    int after = app.product().id().size();
     assertEquals(after, (before + 1));
-    HashSet<String> hrefAfter = app.productPage().links();
+    HashSet<String> hrefAfter = app.product().links();
     hrefAfter.removeAll(hrefBefore);
-    app.productPage().accordance(hrefAfter.iterator().next(), name, generalCode);
+    app.product().accordance(hrefAfter.iterator().next(), name, generalCode);
   }
 }

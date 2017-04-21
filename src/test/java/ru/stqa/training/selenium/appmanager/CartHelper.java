@@ -24,11 +24,11 @@ import static org.testng.Assert.assertEquals;
 
 public class CartHelper extends HelperBase {
 
-  public CartHelper(WebDriver driver) {
-    super(driver);
-  }
+    public CartHelper(WebDriver driver) {
+      super(driver);
+    }
 
-  WebDriverWait wait = new WebDriverWait(driver, 10);
+    WebDriverWait wait = new WebDriverWait(driver, 10);
 
 
   public void firstPopular() {//find first product in Popular group
@@ -56,7 +56,6 @@ public class CartHelper extends HelperBase {
     String productPageName = driver.findElement(By.cssSelector("h1.title")).getText();
     assertEquals(productName, productPageName);
   }
-
 
   public void addToCart() throws InterruptedException {
     int cartQuantity = cartQuantity();

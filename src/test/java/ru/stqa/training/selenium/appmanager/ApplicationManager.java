@@ -8,7 +8,6 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 
@@ -30,6 +29,9 @@ public class ApplicationManager {
   private CartHelper cartHelper;
   private CountriesEditHelper countriesEditHelper;
   private LogsHelper logsHelper;
+  private CartPageHelper cartPageHelper;
+  private ProductPageHelper productPageHelper;
+  private MainCustomersPageHelper mainCustomersPageHelper;
 
 
   public void init() {
@@ -51,6 +53,9 @@ public class ApplicationManager {
     cartHelper = new CartHelper(driver);
     countriesEditHelper = new CountriesEditHelper(driver);
     logsHelper = new LogsHelper(driver);
+    mainCustomersPageHelper = new MainCustomersPageHelper(driver);
+    productPageHelper = new ProductPageHelper(driver);
+    cartPageHelper = new CartPageHelper(driver);
     sessionHelper.login("admin", "admin");
   }
 
@@ -59,7 +64,7 @@ public class ApplicationManager {
     driver = null;
   }
 
-  public ProductHelper productPage() {
+  public ProductHelper product() {
     return productHelper;
   }
 
@@ -89,5 +94,17 @@ public class ApplicationManager {
 
   public LogsHelper logsHelper() {
     return logsHelper;
+  }
+
+  public MainCustomersPageHelper customersPage() {
+    return mainCustomersPageHelper;
+  }
+
+  public ProductPageHelper productPage() {
+    return productPageHelper;
+  }
+
+  public CartPageHelper cartPage() {
+    return cartPageHelper;
   }
 }
