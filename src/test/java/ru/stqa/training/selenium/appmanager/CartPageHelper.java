@@ -3,6 +3,8 @@ package ru.stqa.training.selenium.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashSet;
@@ -19,32 +21,53 @@ import static org.testng.Assert.assertEquals;
 public class CartPageHelper extends HelperBase {
   public CartPageHelper(WebDriver driver) {
     super(driver);
+    PageFactory.initElements(driver, this);
   }
 
   WebDriverWait wait = new WebDriverWait(driver, 10);
 
+@FindBy (css = "li.shortcut")
+List<WebElement> productList;
+
+ @FindBy(css = "li.shortcut a")
+ List<WebElement> aList;
+
+  @FindBy(name = "remove_cart_item")
+  WebElement removeCartItem;
+
+  @FindBy(css = "form img")
+  WebElement image;
+
+  @FindBy(css = "em")
+  WebElement message;
+
+  @FindBy(css = "div p span")
+  List<WebElement> movingImages;
+
+  @FindBy(css = "td.sku")
+  List<WebElement> skuSet;
 
   public void emptyCart() {
     int before = quantity();
     for (int i = 0; i < before; i++) {
       HashSet<String> beforeSKU = getSKUSet();
-      if (driver.findElements(By.cssSelector("li.shortcut")).size() != 0) {
-        List<WebElement> elements = driver.findElements(By.cssSelector("li.shortcut a"));
+      if (productList.size() != 0) {
+        List<WebElement> elements = aList;
         WebElement elementFirst = elements.get(0);
         elementFirst.click();
         wait.until(attributeContains(elementFirst, "class", "inact act"));
       }
       String stringSKU = getStringSKU();
-      driver.findElement(By.name("remove_cart_item")).click();
+      removeCartItem.click();
       if (quantity() > 0) {
         wait.until(stalenessOf(driver.findElement(By.cssSelector("form img")))); //element is moving, not vanished!
       } else {
-        wait.until(visibilityOf(driver.findElement(By.cssSelector("em"))));
+        wait.until(visibilityOf(message));
       }
       assertEquals(before - i - 1, quantity());      //assertion that one element less in the cart
       assertEquals(stringSKU, after(beforeSKU));     //assertion that exact element was deleted
     }
-    new WebDriverWait(driver, 20).until((WebDriver dr) -> dr.findElement(By.cssSelector("em")));
+    new WebDriverWait(driver, 20).until((WebDriver dr) -> message);
     assertTrue(isElementPresent(By.cssSelector("em")));
   }
 
@@ -55,17 +78,17 @@ public class CartPageHelper extends HelperBase {
   }
 
   private String getStringSKU() {
-    String stringSku = driver.findElements(By.cssSelector("div p span")).get(0).getText();
+    String stringSku = movingImages.get(0).getText();
     return stringSku.replace("[SKU: ", "").replace("]", "");
   }
 
   private HashSet<String> getSKUSet() {
-    return driver.findElements(By.cssSelector("td.sku")).stream()
+    return skuSet.stream()
             .map(WebElement::getText).collect(toCollection(HashSet<String>::new));
   }
 
   private int quantity() {
-    return driver.findElements(By.cssSelector("td.sku")).size();
+    return skuSet.size();
   }
 
 }
